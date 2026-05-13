@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pulse — Dashboard</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <div id="nav-placeholder"></div>
+
+  <main class="main-content">
+    <header class="page-header">
+      <div>
+        <h1>Dashboard</h1>
+        <p class="page-subtitle">Bem-vindo de volta, <strong id="nomeUsuario">…</strong> 👋</p>
+      </div>
+      <div class="header-date">
+        <i class="fa-regular fa-calendar"></i>
+        <span id="dataHoje"></span>
+      </div>
+    </header>
+
+    <section class="kpi-grid" id="kpiGrid">
+      <div class="kpi-card glass skeleton"></div>
+      <div class="kpi-card glass skeleton"></div>
+      <div class="kpi-card glass skeleton"></div>
+      <div class="kpi-card glass skeleton"></div>
+    </section>
+
+    <section class="section-card glass">
+      <div class="section-header">
+        <h2><i class="fa-solid fa-clock"></i> Próximos Ensaios</h2>
+        <a href="agendamentos.html" class="btn btn-ghost btn-sm">Ver todos <i class="fa-solid fa-arrow-right"></i></a>
+      </div>
+      <div class="table-responsive">
+        <table class="data-table">
+          <thead>
+            <tr><th>Banda</th><th>Data</th><th>Horário</th><th>Valor</th><th>Status</th></tr>
+          </thead>
+          <tbody id="tbodyProximos">
+            <tr><td colspan="5" class="empty-state"><i class="fa-solid fa-spinner fa-spin"></i> Carregando…</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+
+  <div id="toast-container"></div>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="../scripts/script.js"></script>
+  <script src="../scripts/dashboard.js"></script>
+</body>
+</html>

@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pulse — Agendamentos</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <div id="nav-placeholder"></div>
+
+  <main class="main-content">
+    <header class="page-header">
+      <div>
+        <h1><i class="fa-solid fa-calendar-days"></i> Agendamentos</h1>
+        <p class="page-subtitle">Gerencie os ensaios e gravações do estúdio.</p>
+      </div>
+      <button class="btn btn-primary" id="btnNovoAg"><i class="fa-solid fa-plus"></i> Novo Agendamento</button>
+    </header>
+
+    <!-- Filtros combinados -->
+    <div class="search-bar glass filter-grid">
+      <div class="input-icon">
+        <i class="fa-solid fa-guitar"></i>
+        <input type="text" id="filtroBanda" placeholder="Filtrar por banda…">
+      </div>
+      <div class="input-icon">
+        <i class="fa-regular fa-calendar"></i>
+        <input type="date" id="filtroDataIni" title="Data inicial">
+      </div>
+      <div class="input-icon">
+        <i class="fa-regular fa-calendar-check"></i>
+        <input type="date" id="filtroDataFim" title="Data final">
+      </div>
+      <select id="filtroStatus" class="select-filter">
+        <option value="">Todos</option>
+        <option value="confirmado">Confirmado</option>
+        <option value="pendente">Pendente</option>
+        <option value="concluido">Concluído</option>
+        <option value="cancelado">Cancelado</option>
+      </select>
+      <button class="btn btn-primary" id="btnFiltrar">Filtrar</button>
+      <button class="btn btn-ghost"   id="btnLimpar">Limpar</button>
+    </div>
+
+    <section class="section-card glass">
+      <div class="table-responsive">
+        <table class="data-table">
+          <thead>
+            <tr><th>Banda</th><th>Data</th><th>Horário</th><th>Valor</th><th>Status</th><th>Responsável</th><th>Ações</th></tr>
+          </thead>
+          <tbody id="tbodyAg">
+            <tr><td colspan="7" class="empty-state"><i class="fa-solid fa-spinner fa-spin"></i> Carregando…</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+
+  <!-- Modal Criar/Editar -->
+  <div class="modal-overlay" id="modalOverlay">
+    <div class="modal glass modal-lg">
+      <div class="modal-header">
+        <h2 id="modalTitulo">Novo Agendamento</h2>
+        <button class="modal-close" id="btnFecharModal"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <form id="formAg" novalidate>
+        <input type="hidden" id="inputId">
+        <div class="form-grid">
+          <div class="form-group span-2">
+            <label for="banda_id">Banda *</label>
+            <select id="banda_id" required>
+              <option value="">Selecione a banda…</option>
+            </select>
+            <span class="field-error" id="err-banda_id"></span>
+          </div>
+          <div class="form-group">
+            <label for="data_ensaio">Data *</label>
+            <input type="date" id="data_ensaio" required>
+            <span class="field-error" id="err-data_ensaio"></span>
+          </div>
+          <div class="form-group">
+            <label for="status_ag">Status</label>
+            <select id="status_ag">
+              <option value="confirmado">Confirmado</option>
+              <option value="pendente">Pendente</option>
+              <option value="concluido">Concluído</option>
+              <option value="cancelado">Cancelado</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="hora_inicio">Hora Início *</label>
+            <input type="time" id="hora_inicio" required>
+            <span class="field-error" id="err-hora_inicio"></span>
+          </div>
+          <div class="form-group">
+            <label for="hora_fim">Hora Fim *</label>
+            <input type="time" id="hora_fim" required>
+            <span class="field-error" id="err-hora_fim"></span>
+          </div>
+          <div class="form-group">
+            <label for="valor_total">Valor Total (R$) *</label>
+            <input type="number" id="valor_total" step="0.01" min="0" placeholder="0.00" required>
+            <span class="field-error" id="err-valor_total"></span>
+          </div>
+          <div class="form-group span-2">
+            <label for="observacoes">Observações</label>
+            <textarea id="observacoes" rows="2" placeholder="Notas adicionais…"></textarea>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-ghost" id="btnCancelarModal">Cancelar</button>
+          <button type="submit" class="btn btn-primary"><i class="fa-solid fa-floppy-disk"></i> Salvar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal Cancelar -->
+  <div class="modal-overlay" id="modalDelOverlay">
+    <div class="modal modal-sm glass">
+      <div class="modal-header">
+        <h2><i class="fa-solid fa-ban"></i> Cancelar Agendamento</h2>
+        <button class="modal-close" id="btnFecharModalDel"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <p id="textoConfirmacao" style="margin:1rem 0 1.5rem;color:var(--text-secondary)"></p>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-ghost" id="btnCancelarDel">Voltar</button>
+        <button type="button" class="btn btn-danger" id="btnConfirmarDel"><i class="fa-solid fa-ban"></i> Cancelar</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="toast-container"></div>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="../scripts/script.js"></script>
+  <script src="../scripts/agendamentos.js"></script>
+</body>
+</html>
