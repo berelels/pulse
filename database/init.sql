@@ -92,10 +92,9 @@ CREATE TABLE IF NOT EXISTS regras_negocio (
 -- DADOS DE EXEMPLO
 -- =============================================================
 
--- Usuário admin  (senha plain: admin123 — gere o hash em /scripts/gerar_hash.php)
--- Hash bcrypt de 'admin123':
+-- Usuário admin  (senha plain: admin123)
 INSERT INTO usuarios (nome, email, senha, is_admin) VALUES
-  ('Administrador', 'admin@pulse.studio', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 1);
+  ('Administrador', 'admin@pulse.studio', 'admin123', 1);
 
 -- Bandas
 INSERT INTO bandas (nome_banda, responsavel, telefone, genero) VALUES

@@ -15,14 +15,20 @@
 
 /* ---- Painel esquerdo: formulário ---- */
 .login-left {
-  flex: 0 0 420px;
+  flex: 1; /* 50% split */
   display: flex;
   flex-direction: column;
   justify-content: center;
+  align-items: center;
   padding: 3rem 3.5rem;
   background: #FFFDF0;
   position: relative;
   z-index: 2;
+}
+
+.login-left-content {
+  width: 100%;
+  max-width: 400px; /* Limita a largura do formulário */
 }
 
 .login-logo-flat {
@@ -35,7 +41,6 @@
   letter-spacing: -1px;
   margin-bottom: 2.5rem;
 }
-.login-logo-flat i { color: var(--clr-orange); }
 
 .login-heading {
   font-size: 2rem;

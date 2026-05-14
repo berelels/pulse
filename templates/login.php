@@ -3,10 +3,10 @@
 
   <!-- Painel esquerdo: formulário flat -->
   <div class="login-left">
-    <div class="login-logo-flat">
-      <i class="fa-solid fa-circle-waveform-lines"></i>
-      <span>Pulse</span>
-    </div>
+    <div class="login-left-content">
+      <div class="login-logo-flat">
+        <img src="assets/img/pulse_logo2.svg" alt="Pulse Logo" style="height: 36px;">
+      </div>
 
     <h1 class="login-heading">Olá,<br>Bem-vindo de volta!</h1>
     <p class="login-sub">Acesse o painel de gestão do estúdio.</p>
@@ -51,7 +51,8 @@
       </button>
     </form>
 
-    <p class="login-hint-flat">Acesso restrito à equipe do estúdio.</p>
+      <p class="login-hint-flat">Acesso restrito à equipe do estúdio.</p>
+    </div>
   </div>
 
   <!-- Painel direito: ilustração isométrica -->
