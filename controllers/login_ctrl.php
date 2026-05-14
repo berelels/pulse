@@ -20,7 +20,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     } else {
         $pdo  = getConexao();
         $stmt = $pdo->prepare(
-            'SELECT id, nome, email, senha, is_admin FROM usuarios WHERE email = :email LIMIT 1'
+            'SELECT id, nome, email, senha, is_admin, tema FROM usuarios WHERE email = :email LIMIT 1'
         );
         $stmt->execute([':email' => $emailPost]);
         $user = $stmt->fetch();
@@ -40,10 +40,24 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $_SESSION['usuario_nome']  = $user['nome'];
             $_SESSION['usuario_email'] = $user['email'];
             $_SESSION['usuario_admin'] = (bool) $user['is_admin'];
+            $_SESSION['tema']          = $user['tema'] ?? 'escuro';
+            $_SESSION['play_intro'] = true;
+            
+            if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) === 'xmlhttprequest') {
+                header('Content-Type: application/json');
+                echo json_encode(['success' => true]);
+                exit;
+            }
+
             header('Location: dashboard.php');
             exit;
         }
 
         $erro = 'E-mail ou senha inválidos.';
+        if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) === 'xmlhttprequest') {
+            header('Content-Type: application/json');
+            echo json_encode(['success' => false, 'error' => $erro]);
+            exit;
+        }
     }
 }

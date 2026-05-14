@@ -44,6 +44,25 @@
   --transition:  all 0.22s ease;
 }
 
+/* Tema Escuro */
+:root[data-theme="escuro"], body[data-theme="escuro"], [data-theme="escuro"] {
+  --clr-dark:     #FFFDF0; /* Invertido para uso em textos escuros */
+  --clr-cream:    #282829; /* Fundo principal */
+  --clr-navy:     #8AA8FF; /* Títulos etc */
+  --clr-blue:     #002A54; 
+  --clr-orange:   #FF9800;
+
+  --glass-bg:         rgba(40, 40, 41, 0.55);
+  --glass-border:     rgba(255, 255, 255, 0.1);
+  --glass-shadow:     0 8px 32px rgba(0, 0, 0, 0.3);
+
+  --text-primary:   #FFFDF0;
+  --text-secondary: #dcdcdc;
+  --text-muted:     #a0a0a0;
+  
+  --di-bg:          rgba(20, 20, 22, 0.88);
+}
+
 /* ================================================================
    2. RESET & BASE
    ================================================================ */

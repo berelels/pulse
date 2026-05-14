@@ -36,6 +36,50 @@ document.getElementById('formLogin').addEventListener('submit', function (e) {
 
   if (!ok) {
     e.preventDefault();
+  } else {
+    e.preventDefault();
+    
+    const formData = new FormData(this);
+    const btnLogin = document.getElementById('btnLogin');
+    btnLogin.disabled = true;
+    btnLogin.innerHTML = '<span>Carregando...</span>';
+
+    fetch('login.php', {
+      method: 'POST',
+      headers: {
+        'X-Requested-With': 'XMLHttpRequest'
+      },
+      body: formData
+    })
+    .then(response => {
+        if (!response.ok) {
+            // Se ocorreu algum redirect ou erro fatal, cai pro fallback
+            window.location.href = 'login.php';
+            return;
+        }
+        return response.json();
+    })
+    .then(data => {
+      if (data && data.success) {
+        // Redireciona imediatamente. O dashboard cuidará de tocar a animação de introdução
+        // de forma mais profissional e fluida.
+        window.location.href = 'dashboard.php';
+
+      } else if (data && !data.success) {
+        // Mostra o erro 
+        if (typeof showToast === 'function') {
+            showToast(data.error || 'Erro no login.', 'error');
+        } else {
+            alert(data.error || 'Erro no login.');
+        }
+        btnLogin.disabled = false;
+        btnLogin.innerHTML = '<span>Entrar</span><i class="fa-solid fa-arrow-right"></i>';
+      }
+    })
+    .catch(err => {
+      console.error(err);
+      window.location.href = 'login.php';
+    });
   }
 });
 

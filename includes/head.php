@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-BR" data-theme="<?= htmlspecialchars($_SESSION['tema'] ?? 'escuro') ?>">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,9 +12,15 @@
   <?php if (($pageTitle ?? '') === 'Login'): ?>
   <link rel="stylesheet" href="assets/css/login.css?v=<?= time() ?>">
   <?php else: ?>
-  <link rel="stylesheet" href="assets/css/app.css">
+  <link rel="stylesheet" href="assets/css/app.css?v=<?= time() ?>">
   <?php endif; ?>
   <?php if (!empty($extraHeadScripts)): foreach ($extraHeadScripts as $src): ?>
     <script src="<?= $src ?>"></script>
   <?php endforeach; endif; ?>
+  <script>
+    const savedTheme = localStorage.getItem('pulse_theme');
+    if (savedTheme) {
+      document.documentElement.setAttribute('data-theme', savedTheme);
+    }
+  </script>
 </head>

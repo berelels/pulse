@@ -18,6 +18,7 @@ CREATE TABLE IF NOT EXISTS usuarios (
   email     VARCHAR(150) NOT NULL UNIQUE,
   senha     VARCHAR(255) NOT NULL,
   is_admin  TINYINT(1)   NOT NULL DEFAULT 0,
+  tema      ENUM('claro','escuro') NOT NULL DEFAULT 'escuro',
   criado_em DATETIME     NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -131,6 +132,6 @@ INSERT INTO regras_negocio (chave, valor, descricao) VALUES
 
 -- =============================================================
 -- ACESSO:  admin@pulse.studio  /  admin123
--- GERE NOVO HASH EM: http://localhost/pulse/scripts/gerar_hash.php
+-- (Senhas configuradas em texto puro localmente)
 -- IMPORTAR: phpMyAdmin → Importar → selecione este arquivo
 -- =============================================================

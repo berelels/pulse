@@ -120,4 +120,37 @@ document.addEventListener('DOMContentLoaded', function () {
 
     cards.forEach(function (c) { obs.observe(c); });
   }
+
+  // Theme Toggle
+  const themeToggleBtn = document.getElementById('theme-toggle');
+  if (themeToggleBtn) {
+    const htmlEl = document.documentElement;
+    const icon = themeToggleBtn.querySelector('i');
+    
+    // Set initial icon based on current data-theme
+    let currentTheme = htmlEl.getAttribute('data-theme') || 'escuro';
+    icon.className = currentTheme === 'escuro' ? 'fa-solid fa-sun' : 'fa-solid fa-moon';
+
+    themeToggleBtn.addEventListener('click', function () {
+      currentTheme = htmlEl.getAttribute('data-theme') || 'escuro';
+      let newTheme = currentTheme === 'escuro' ? 'claro' : 'escuro';
+      
+      htmlEl.setAttribute('data-theme', newTheme);
+      localStorage.setItem('pulse_theme', newTheme); // Save to LocalStorage
+      
+      // Update icon
+      if (newTheme === 'escuro') {
+        icon.className = 'fa-solid fa-sun'; // When dark, show sun to toggle light
+      } else {
+        icon.className = 'fa-solid fa-moon'; // When light, show moon to toggle dark
+      }
+
+      // Save to database via AJAX if possible
+      fetch('api/tema_action.php', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ tema: newTheme })
+      }).catch(err => console.error('Erro ao salvar o tema:', err));
+    });
+  }
 });

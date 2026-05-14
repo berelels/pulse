@@ -10,7 +10,7 @@
   height: auto;
   flex-direction: row;
   padding: 0;
-  background: rgba(255,253,240,0.92);
+  background: var(--glass-bg);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   border-right: none;
@@ -91,7 +91,7 @@
    ================================================================ */
 .kpi-card {
   border-radius: 20px;
-  background: #fff;
+  background: var(--clr-cream);
   border: none;
   box-shadow:
     0 4px 0 rgba(0,42,84,0.10),
@@ -109,7 +109,7 @@
 
 .section-card {
   border-radius: 24px;
-  background: #fff;
+  background: var(--clr-cream);
   border: none;
   box-shadow:
     0 4px 0 rgba(0,42,84,0.08),
@@ -120,7 +120,7 @@
 
 /* glass-inner para regras */
 .glass-inner {
-  background: rgba(255,253,240,0.7);
+  background: var(--glass-bg);
   border: 1.5px solid rgba(0,42,84,0.08);
   border-radius: 14px;
   backdrop-filter: blur(8px);
@@ -159,7 +159,7 @@
   cursor: pointer;
   transition: all 0.2s;
   width: 100%;
-  background: rgba(255,253,240,0.7);
+  background: var(--glass-bg);
 }
 .equip-check-label i { color: var(--text-muted); font-size: 0.85rem; }
 .equip-check-item input:checked + .equip-check-label {
@@ -205,8 +205,9 @@
   border-radius: 8px;
   font-size: 0.875rem;
   text-align: right;
-  background: #fff;
+  background: var(--clr-cream);
   outline: none;
+  color: var(--text-primary);
   transition: border-color 0.2s;
 }
 .regra-input:focus { border-color: var(--clr-blue); }
