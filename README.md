@@ -2,8 +2,6 @@
 
 **Pulse** é uma solução completa e moderna para a gestão de estúdios de gravação e ensaio. O sistema centraliza o controle de bandas, equipamentos, agendamentos e faturamento, oferecendo uma experiência de uso premium através de uma interface baseada em *Bento Pro*, *Glassmorphism* e *Dynamic Island*.
 
-> **Tags:** #SaaS #StudioManagement #PHP #MySQL #LiquidGlass #BentoGrid #ModernUI #DynamicIsland #PulseStudio
-
 ---
 
 ## 🏗️ Visão Geral
