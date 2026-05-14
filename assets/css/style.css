@@ -46,21 +46,22 @@
 
 /* Tema Escuro */
 :root[data-theme="escuro"], body[data-theme="escuro"], [data-theme="escuro"] {
-  --clr-dark:     #FFFDF0; /* Invertido para uso em textos escuros */
-  --clr-cream:    #282829; /* Fundo principal */
-  --clr-navy:     #8AA8FF; /* Títulos etc */
-  --clr-blue:     #002A54; 
+  --clr-dark:     #FFFFFF; 
+  --clr-cream:    #161616; /* Fundo principal escuro */
+  --clr-navy:     #F3F3F3; /* Títulos etc */
+  --clr-blue:     #8AA8FF; 
   --clr-orange:   #FF9800;
 
-  --glass-bg:         rgba(40, 40, 41, 0.55);
-  --glass-border:     rgba(255, 255, 255, 0.1);
-  --glass-shadow:     0 8px 32px rgba(0, 0, 0, 0.3);
+  --glass-bg:         #212121; /* Fundo sólido (Flat) */
+  --glass-border:     rgba(255, 255, 255, 0.04);
+  --glass-shadow:     0 4px 20px rgba(0, 0, 0, 0.4); /* Sombra suave escura */
+  --glass-blur:       none; /* Sem blur (Flat) */
 
-  --text-primary:   #FFFDF0;
-  --text-secondary: #dcdcdc;
-  --text-muted:     #a0a0a0;
+  --text-primary:   #EAEAEA;
+  --text-secondary: #A1A1AA;
+  --text-muted:     #71717A;
   
-  --di-bg:          rgba(20, 20, 22, 0.88);
+  --di-bg:          #27272A;
 }
 
 /* ================================================================
