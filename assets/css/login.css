@@ -224,6 +224,45 @@
 /* ---- Erro ---- */
 .login-left .alert { margin-bottom: 1.2rem; }
 
+/* ================================================================
+   TEMA ESCURO (BENTO PRO) OVERRIDES PARA LOGIN
+   ================================================================ */
+[data-theme="escuro"] .login-body,
+[data-theme="escuro"] .login-left {
+  background: var(--clr-cream); /* #161616 no escuro */
+}
+[data-theme="escuro"] .login-heading {
+  color: var(--text-primary);
+}
+[data-theme="escuro"] .login-logo-flat {
+  color: var(--text-primary);
+}
+[data-theme="escuro"] .login-right {
+  background: #0D0D0E; /* Fundo bem escuro pra combinar com Bento Pro */
+}
+[data-theme="escuro"] .btn-login-flat {
+  background: var(--clr-orange); /* Botão laranja no escuro */
+  color: #fff;
+  box-shadow: 0 4px 0 #cc7a00;
+}
+[data-theme="escuro"] .btn-login-flat:hover {
+  box-shadow: 0 6px 0 #cc7a00;
+}
+[data-theme="escuro"] .btn-login-flat:active {
+  box-shadow: 0 2px 0 #cc7a00;
+}
+[data-theme="escuro"] .login-left input[type="email"],
+[data-theme="escuro"] .login-left input[type="password"],
+[data-theme="escuro"] .login-left input[type="text"] {
+  background: #1A1A1C; /* Fundo cinza escuro dos inputs */
+  border: 1px solid rgba(255,255,255,0.08);
+  color: var(--text-primary);
+}
+[data-theme="escuro"] .login-badge {
+  background: #1A1A1C;
+  color: var(--text-primary);
+}
+
 /* ---- Responsive ---- */
 @media (max-width: 768px) {
   .login-body { flex-direction: column; }
