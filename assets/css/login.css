@@ -224,6 +224,31 @@
 /* ---- Erro ---- */
 .login-left .alert { margin-bottom: 1.2rem; }
 
+/* ---- Tema Escuro (Bento Pro Flat) Override para Login ---- */
+[data-theme="escuro"] .login-right {
+  background: #0D0D0E;
+}
+[data-theme="escuro"] .btn-login-flat {
+  background: var(--clr-orange);
+  color: #fff;
+  box-shadow: 0 4px 0 #cc7a00;
+}
+[data-theme="escuro"] .btn-login-flat:hover {
+  box-shadow: 0 6px 0 #cc7a00;
+}
+[data-theme="escuro"] .btn-login-flat:active {
+  box-shadow: 0 2px 0 #cc7a00;
+}
+[data-theme="escuro"] .login-logo-flat {
+  color: #fff;
+}
+[data-theme="escuro"] .login-left input[type="email"],
+[data-theme="escuro"] .login-left input[type="password"],
+[data-theme="escuro"] .login-left input[type="text"] {
+  border-color: rgba(255,255,255,0.08);
+  background: #1A1A1C;
+}
+
 /* ---- Responsive ---- */
 @media (max-width: 768px) {
   .login-body { flex-direction: column; }
