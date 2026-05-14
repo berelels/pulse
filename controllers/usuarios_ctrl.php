@@ -19,5 +19,5 @@ $toastParam   = $_GET['toast'] ?? '';
 $usuarioAtual = usuarioLogado();
 
 $usuarios = $pdo->query(
-    'SELECT id, nome, email, is_admin, criado_em FROM usuarios ORDER BY nome'
+    'SELECT id, nome, email, is_admin, permissoes, criado_em FROM usuarios ORDER BY nome'
 )->fetchAll();

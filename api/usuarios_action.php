@@ -18,11 +18,14 @@ switch ($acao) {
         $email   = trim($_POST['email'] ?? '');
         $senha   = $_POST['senha'] ?? '';
         $isAdmin = !empty($_POST['is_admin']) ? 1 : 0;
+        $perms   = $_POST['perms'] ?? [];
+        $permsJson = json_encode($perms);
+
         if (!$nome || !$email || $senha === '') redir('erro');
         if (!filter_var($email, FILTER_VALIDATE_EMAIL)) redir('erro');
-        $stmt = $pdo->prepare('INSERT INTO usuarios (nome, email, senha, is_admin) VALUES (:n,:e,:s,:a)');
+        $stmt = $pdo->prepare('INSERT INTO usuarios (nome, email, senha, is_admin, permissoes) VALUES (:n,:e,:s,:a,:p)');
         try {
-            $stmt->execute([':n' => $nome, ':e' => $email, ':s' => $senha, ':a' => $isAdmin]);
+            $stmt->execute([':n' => $nome, ':e' => $email, ':s' => $senha, ':a' => $isAdmin, ':p' => $permsJson]);
         } catch (\PDOException $ex) {
             redir('erro'); // e-mail duplicado
         }
@@ -34,14 +37,17 @@ switch ($acao) {
         $email   = trim($_POST['email']  ?? '');
         $senha   = $_POST['senha'] ?? '';
         $isAdmin = !empty($_POST['is_admin']) ? 1 : 0;
+        $perms   = $_POST['perms'] ?? [];
+        $permsJson = json_encode($perms);
+
         if (!$id || !$nome || !$email) redir('erro');
 
         if ($senha !== '') {
-            $stmt = $pdo->prepare('UPDATE usuarios SET nome=:n, email=:e, senha=:s, is_admin=:a WHERE id=:id');
-            $stmt->execute([':n' => $nome, ':e' => $email, ':s' => $senha, ':a' => $isAdmin, ':id' => $id]);
+            $stmt = $pdo->prepare('UPDATE usuarios SET nome=:n, email=:e, senha=:s, is_admin=:a, permissoes=:p WHERE id=:id');
+            $stmt->execute([':n' => $nome, ':e' => $email, ':s' => $senha, ':a' => $isAdmin, ':p' => $permsJson, ':id' => $id]);
         } else {
-            $stmt = $pdo->prepare('UPDATE usuarios SET nome=:n, email=:e, is_admin=:a WHERE id=:id');
-            $stmt->execute([':n' => $nome, ':e' => $email, ':a' => $isAdmin, ':id' => $id]);
+            $stmt = $pdo->prepare('UPDATE usuarios SET nome=:n, email=:e, is_admin=:a, permissoes=:p WHERE id=:id');
+            $stmt->execute([':n' => $nome, ':e' => $email, ':a' => $isAdmin, ':p' => $permsJson, ':id' => $id]);
         }
         redir('ok');
 

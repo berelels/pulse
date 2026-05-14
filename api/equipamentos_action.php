@@ -6,6 +6,12 @@ requireAuth();
 $pdo  = getConexao();
 $acao = $_POST['acao'] ?? '';
 
+// Verificação global de acesso ao módulo
+if (!hasPermission('equipamentos')) {
+    header('Location: ../dashboard.php');
+    exit;
+}
+
 function redir(string $msg): never {
     header('Location: ../equipamentos.php?toast=' . $msg);
     exit;
@@ -13,6 +19,7 @@ function redir(string $msg): never {
 
 switch ($acao) {
     case 'criar':
+        if (!hasPermission('edit')) redir('erro');
         $nome   = trim($_POST['nome']          ?? '');
         $desc   = trim($_POST['descricao']     ?? '');
         $valor  = (float)($_POST['valor_locacao'] ?? 0);
@@ -23,6 +30,7 @@ switch ($acao) {
         redir('ok');
 
     case 'editar':
+        if (!hasPermission('edit')) redir('erro');
         $id     = (int)($_POST['id']           ?? 0);
         $nome   = trim($_POST['nome']          ?? '');
         $desc   = trim($_POST['descricao']     ?? '');
@@ -34,6 +42,7 @@ switch ($acao) {
         redir('ok');
 
     case 'excluir':
+        if (!hasPermission('delete')) redir('erro');
         $id = (int)($_POST['id'] ?? 0);
         if ($id === 0) redir('erro');
         $stmt = $pdo->prepare('DELETE FROM equipamentos WHERE id=:id');

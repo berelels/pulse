@@ -17,9 +17,10 @@ CREATE TABLE IF NOT EXISTS usuarios (
   nome      VARCHAR(150) NOT NULL,
   email     VARCHAR(150) NOT NULL UNIQUE,
   senha     VARCHAR(255) NOT NULL,
-  is_admin  TINYINT(1)   NOT NULL DEFAULT 0,
-  tema      ENUM('claro','escuro') NOT NULL DEFAULT 'escuro',
-  criado_em DATETIME     NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  is_admin   TINYINT(1)   NOT NULL DEFAULT 0,
+  permissoes JSON         DEFAULT NULL,
+  tema       ENUM('claro','escuro') NOT NULL DEFAULT 'escuro',
+  criado_em  DATETIME     NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 

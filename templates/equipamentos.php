@@ -8,9 +8,11 @@
       <h1><i class="fa-solid fa-microphone-lines"></i> Equipamentos</h1>
       <p class="page-subtitle">Catálogo de equipamentos disponíveis para locação.</p>
     </div>
+    <?php if (hasPermission('edit')): ?>
     <button class="btn btn-primary" id="btnNovoEquip">
       <i class="fa-solid fa-plus"></i> Novo Equipamento
     </button>
+    <?php endif; ?>
   </header>
 
   <!-- Filtros combinados -->
@@ -60,6 +62,7 @@
                 </span>
               </td>
               <td class="action-btns">
+                <?php if (hasPermission('edit')): ?>
                 <button class="btn btn-icon btn-edit" title="Editar"
                   data-id="<?= $eq['id'] ?>"
                   data-nome="<?= htmlspecialchars($eq['nome'],       ENT_QUOTES) ?>"
@@ -68,11 +71,14 @@
                   data-status="<?= $eq['status'] ?>">
                   <i class="fa-solid fa-pen-to-square"></i>
                 </button>
+                <?php endif; ?>
+                <?php if (hasPermission('delete')): ?>
                 <button class="btn btn-icon btn-delete" title="Excluir"
                   data-id="<?= $eq['id'] ?>"
                   data-nome="<?= htmlspecialchars($eq['nome'], ENT_QUOTES) ?>">
                   <i class="fa-solid fa-trash"></i>
                 </button>
+                <?php endif; ?>
               </td>
             </tr>
             <?php endforeach; ?>

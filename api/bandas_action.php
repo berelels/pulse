@@ -10,6 +10,12 @@ requireAuth();
 $pdo  = getConexao();
 $acao = $_POST['acao'] ?? '';
 
+// Verificação global de acesso ao módulo
+if (!hasPermission('bandas')) {
+    header('Location: ../dashboard.php');
+    exit;
+}
+
 function redir(string $msg): never {
     header('Location: ../bandas.php?toast=' . $msg);
     exit;
@@ -19,6 +25,7 @@ switch ($acao) {
 
     // ------------------------------------------------------------------
     case 'criar':
+        if (!hasPermission('edit')) redir('erro');
         $nome = trim($_POST['nome_banda']  ?? '');
         $resp = trim($_POST['responsavel'] ?? '');
         $tel  = trim($_POST['telefone']    ?? '');
@@ -34,6 +41,7 @@ switch ($acao) {
 
     // ------------------------------------------------------------------
     case 'editar':
+        if (!hasPermission('edit')) redir('erro');
         $id   = (int)($_POST['id']          ?? 0);
         $nome = trim($_POST['nome_banda']   ?? '');
         $resp = trim($_POST['responsavel']  ?? '');
@@ -50,6 +58,7 @@ switch ($acao) {
 
     // ------------------------------------------------------------------
     case 'excluir':
+        if (!hasPermission('delete')) redir('erro');
         $id = (int)($_POST['id'] ?? 0);
         if ($id === 0) redir('erro');
 

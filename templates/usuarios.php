@@ -43,7 +43,8 @@
                 data-id="<?= $u['id'] ?>"
                 data-nome="<?= htmlspecialchars($u['nome'],  ENT_QUOTES) ?>"
                 data-email="<?= htmlspecialchars($u['email'], ENT_QUOTES) ?>"
-                data-admin="<?= $u['is_admin'] ? '1' : '0' ?>">
+                data-admin="<?= $u['is_admin'] ? '1' : '0' ?>"
+                data-perms='<?= $u['permissoes'] ?: "[]" ?>'>
                 <i class="fa-solid fa-pen-to-square"></i>
               </button>
               <?php if ($u['id'] !== $usuarioAtual['id']): ?>
@@ -97,8 +98,39 @@
         <div class="form-group span-2">
           <label class="checkbox-label">
             <input type="checkbox" name="is_admin" id="is_admin" value="1">
-            <span>Conceder acesso de Administrador</span>
+            <span style="font-weight: 700; color: var(--clr-orange);">Acesso de Administrador (Acesso Total)</span>
           </label>
+        </div>
+
+        <div id="permissions-section" class="form-group span-2" style="border-top: 1px solid var(--glass-border); padding-top: 1rem; margin-top: 0.5rem;">
+          <p style="font-weight: 600; margin-bottom: 0.8rem; font-size: 0.9rem;">Permissões Específicas (para Colaboradores):</p>
+          
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+            <div>
+              <p style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 0.5rem; text-transform: uppercase;">Módulos</p>
+              <label class="checkbox-label" style="margin-bottom: 0.4rem;">
+                <input type="checkbox" name="perms[]" value="bandas" class="perm-check"> <span>Bandas</span>
+              </label>
+              <label class="checkbox-label" style="margin-bottom: 0.4rem;">
+                <input type="checkbox" name="perms[]" value="equipamentos" class="perm-check"> <span>Equipamentos</span>
+              </label>
+              <label class="checkbox-label" style="margin-bottom: 0.4rem;">
+                <input type="checkbox" name="perms[]" value="agendamentos" class="perm-check"> <span>Agendamentos</span>
+              </label>
+              <label class="checkbox-label" style="margin-bottom: 0.4rem;">
+                <input type="checkbox" name="perms[]" value="relatorios" class="perm-check"> <span>Relatórios</span>
+              </label>
+            </div>
+            <div>
+              <p style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 0.5rem; text-transform: uppercase;">Ações</p>
+              <label class="checkbox-label" style="margin-bottom: 0.4rem;">
+                <input type="checkbox" name="perms[]" value="edit" class="perm-check"> <span>Pode Editar</span>
+              </label>
+              <label class="checkbox-label" style="margin-bottom: 0.4rem;">
+                <input type="checkbox" name="perms[]" value="delete" class="perm-check"> <span>Pode Excluir</span>
+              </label>
+            </div>
+          </div>
         </div>
       </div>
       <div class="modal-footer">

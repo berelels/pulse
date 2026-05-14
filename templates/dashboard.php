@@ -58,6 +58,7 @@
 
     <!-- KPI Cards -->
     <section class="kpi-grid">
+      <?php if (hasPermission('bandas')): ?>
       <div class="kpi-card glass">
         <div class="kpi-icon kpi-blue"><i class="fa-solid fa-guitar"></i></div>
         <div class="kpi-info">
@@ -65,6 +66,8 @@
           <span class="kpi-label">Bandas Cadastradas</span>
         </div>
       </div>
+      <?php endif; ?>
+      <?php if (hasPermission('agendamentos')): ?>
       <div class="kpi-card glass">
         <div class="kpi-icon kpi-orange"><i class="fa-solid fa-calendar-check"></i></div>
         <div class="kpi-info">
@@ -72,6 +75,8 @@
           <span class="kpi-label">Agendamentos Ativos</span>
         </div>
       </div>
+      <?php endif; ?>
+      <?php if (hasPermission('equipamentos')): ?>
       <div class="kpi-card glass">
         <div class="kpi-icon kpi-green"><i class="fa-solid fa-microphone-lines"></i></div>
         <div class="kpi-info">
@@ -79,6 +84,8 @@
           <span class="kpi-label">Equipamentos Disponíveis</span>
         </div>
       </div>
+      <?php endif; ?>
+      <?php if (hasPermission('relatorios')): ?>
       <div class="kpi-card glass">
         <div class="kpi-icon kpi-teal"><i class="fa-solid fa-circle-dollar-to-slot"></i></div>
         <div class="kpi-info">
@@ -86,9 +93,10 @@
           <span class="kpi-label">Faturamento do Mês</span>
         </div>
       </div>
+      <?php endif; ?>
     </section>
 
-    <!-- Próximos Agendamentos -->
+    <?php if (hasPermission('agendamentos')): ?>
     <section class="section-card glass">
       <div class="section-header">
         <h2><i class="fa-solid fa-clock"></i> Próximos Ensaios</h2>
@@ -129,6 +137,7 @@
         </table>
       </div>
     </section>
+    <?php endif; ?>
   </main>
 
   <div id="toast-container"></div>

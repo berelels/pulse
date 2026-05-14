@@ -23,6 +23,11 @@ document.getElementById('btnNovoUser').addEventListener('click', function () {
     if (err) err.textContent = '';
     document.getElementById(c).classList.remove('input-invalid');
   });
+  
+  // Resetar permissões
+  document.querySelectorAll('.perm-check').forEach(cb => cb.checked = false);
+  document.getElementById('permissions-section').style.display = 'block';
+
   abrirOverlay('modalOverlay');
 });
 
@@ -37,9 +42,24 @@ document.querySelector('.data-table').addEventListener('click', function (e) {
   document.getElementById('nome').value        = btn.dataset.nome;
   document.getElementById('email').value       = btn.dataset.email;
   document.getElementById('senha').value       = '';
-  document.getElementById('is_admin').checked  = btn.dataset.admin === '1';
+  
+  const isAdmin = btn.dataset.admin === '1';
+  document.getElementById('is_admin').checked  = isAdmin;
+  document.getElementById('permissions-section').style.display = isAdmin ? 'none' : 'block';
+
+  // Carregar permissões
+  const perms = JSON.parse(btn.dataset.perms || '[]');
+  document.querySelectorAll('.perm-check').forEach(cb => {
+    cb.checked = perms.includes(cb.value);
+  });
+
   document.getElementById('labelSenhaHint').style.display = 'inline';
   abrirOverlay('modalOverlay');
+});
+
+// Alternar seção de permissões
+document.getElementById('is_admin').addEventListener('change', function() {
+  document.getElementById('permissions-section').style.display = this.checked ? 'none' : 'block';
 });
 
 document.getElementById('btnFecharModal').addEventListener('click',  () => fecharOverlay('modalOverlay'));

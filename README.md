@@ -1,11 +1,14 @@
 # Pulse — Sistema de Gestão para Estúdios de Gravação 🎙️
 
-![PHP](https://img.shields.io/badge/PHP-8.x-777BB4?logo=php) ![MySQL](https://img.shields.io/badge/MySQL-XAMPP-4479A1?logo=mysql) ![CSS3](https://img.shields.io/badge/CSS3-Liquid%20Glass-1572B6?logo=css3)
+**Pulse** é uma solução completa e moderna para a gestão de estúdios de gravação e ensaio. O sistema centraliza o controle de bandas, equipamentos, agendamentos e faturamento, oferecendo uma experiência de uso premium através de uma interface baseada em *Bento Pro*, *Glassmorphism* e *Dynamic Island*.
 
-## Visão Geral
+> **Tags:** #SaaS #StudioManagement #PHP #MySQL #LiquidGlass #BentoGrid #ModernUI #DynamicIsland #PulseStudio
 
-**Pulse** é um Sistema Web de Gestão e Locação para Estúdios de Gravação e Ensaios.
-Permite que a equipe do estúdio gerencie bandas, equipamentos e agendamentos de forma eficiente, com uma interface moderna estilo *Liquid Glass UI* e *Dynamic Island*.
+---
+
+## 🏗️ Visão Geral
+
+O sistema foi projetado para facilitar a operação diária de estúdios musicais, permitindo que administradores e colaboradores gerenciem fluxos complexos de forma intuitiva, com cálculos automáticos de valores e controle granular de permissões.
 
 ---
 
@@ -121,7 +124,7 @@ define('DB_PASS', '');
 - **Estética Global**: Liquid Glass UI (Glassmorphism sutil).
 - **Navegação**: Dynamic Island (pill flutuante centralizada) responsiva.
 - **Login**: Layout 50/50 com design Flat e ilustração Isométrica integrada.
-- **Tipografia**: Inter (Google Fonts)
+- **Tipografia**: Outfit (Títulos) e Nunito (Corpo) - Google Fonts
 - **Animações**: Micro-animações em cards, modais e toasts.
 
 ---

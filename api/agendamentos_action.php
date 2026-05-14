@@ -6,6 +6,12 @@ requireAuth();
 $pdo  = getConexao();
 $acao = $_POST['acao'] ?? '';
 
+// Verificação global de acesso ao módulo
+if (!hasPermission('agendamentos')) {
+    header('Location: ../dashboard.php');
+    exit;
+}
+
 function redir(string $msg): never {
     header('Location: ../agendamentos.php?toast=' . $msg);
     exit;
@@ -27,6 +33,7 @@ function salvarEquipamentos(PDO $pdo, int $agId, array $equipIds): void {
 
 switch ($acao) {
     case 'criar':
+        if (!hasPermission('edit')) redir('erro');
         $bandaId    = (int)($_POST['banda_id']    ?? 0);
         $usuarioId  = (int)($_POST['usuario_id']  ?? 0);
         $data       = trim($_POST['data_ensaio']  ?? '');
@@ -47,6 +54,7 @@ switch ($acao) {
         redir('ok');
 
     case 'editar':
+        if (!hasPermission('edit')) redir('erro');
         $id     = (int)($_POST['id']           ?? 0);
         $bandaId= (int)($_POST['banda_id']     ?? 0);
         $data   = trim($_POST['data_ensaio']   ?? '');
@@ -65,12 +73,21 @@ switch ($acao) {
         redir('ok');
 
     case 'confirmar':
+        if (!hasPermission('edit')) redir('erro');
         $id = (int)($_POST['id'] ?? 0);
         if (!$id) redir('erro');
         $pdo->prepare("UPDATE agendamentos SET status='confirmado' WHERE id=:id")->execute([':id'=>$id]);
         redir('confirmado');
 
+    case 'concluir':
+        if (!hasPermission('edit')) redir('erro');
+        $id = (int)($_POST['id'] ?? 0);
+        if (!$id) redir('erro');
+        $pdo->prepare("UPDATE agendamentos SET status='concluido' WHERE id=:id")->execute([':id'=>$id]);
+        redir('concluido');
+
     case 'cancelar':
+        if (!hasPermission('delete')) redir('erro');
         $id = (int)($_POST['id'] ?? 0);
         if (!$id) redir('erro');
         $pdo->prepare("UPDATE agendamentos SET status='cancelado' WHERE id=:id")->execute([':id'=>$id]);

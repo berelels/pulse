@@ -7,12 +7,21 @@ require_once 'config/conexao.php';
 require_once 'config/sessao.php';
 requireAuth();
 
+if (!hasPermission('agendamentos')) {
+    header('Location: dashboard.php');
+    exit;
+}
+
 $pageTitle = 'Agendamentos';
 $pdo       = getConexao();
 
 // Selects para o formulário modal
 $bandas      = $pdo->query('SELECT id, nome_banda FROM bandas ORDER BY nome_banda')->fetchAll();
-$equipamentos_disponiveis = $pdo->query("SELECT id, nome FROM equipamentos WHERE status='disponivel' ORDER BY nome")->fetchAll();
+$equipamentos_disponiveis = $pdo->query("SELECT id, nome, valor_locacao FROM equipamentos WHERE status='disponivel' ORDER BY nome")->fetchAll();
+
+// Busca regras de negócio para cálculo no frontend
+$regras_raw = $pdo->query('SELECT chave, valor FROM regras_negocio')->fetchAll(PDO::FETCH_KEY_PAIR);
+$precoHoraEnsaio = (float)($regras_raw['preco_hora_ensaio'] ?? 150);
 
 // Filtros vindos do GET
 $filtroBanda   = trim($_GET['banda']    ?? '');

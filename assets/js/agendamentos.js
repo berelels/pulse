@@ -66,6 +66,38 @@ document.getElementById('modalOverlay').addEventListener('click', function (e) {
   if (e.target === this) fecharOverlay('modalOverlay');
 });
 
+// ---- Cálculo Dinâmico de Valor ----
+const valInput = document.getElementById('valor_total');
+const precoHora = parseFloat(valInput.dataset.precoHora || 150);
+
+function recalcularValor() {
+  const ini = document.getElementById('hora_inicio').value;
+  const fim = document.getElementById('hora_fim').value;
+  let valor = 0;
+
+  if (ini && fim) {
+    const [h1, m1] = ini.split(':').map(Number);
+    const [h2, m2] = fim.split(':').map(Number);
+    let diff = (h2 + m2/60) - (h1 + m1/60);
+    if (diff < 0) diff += 24; // Virou a noite
+    valor = diff * precoHora;
+  }
+
+  document.querySelectorAll('.equip-checkbox:checked').forEach(cb => {
+    valor += parseFloat(cb.dataset.valor || 0);
+  });
+
+  if (valor > 0) {
+    valInput.value = valor.toFixed(2);
+  }
+}
+
+document.getElementById('hora_inicio').addEventListener('change', recalcularValor);
+document.getElementById('hora_fim').addEventListener('change', recalcularValor);
+document.querySelectorAll('.equip-checkbox').forEach(cb => {
+  cb.addEventListener('change', recalcularValor);
+});
+
 // ---- Validação ----
 document.getElementById('formAg').addEventListener('submit', function (e) {
   let ok = true;
@@ -104,6 +136,7 @@ document.getElementById('modalDelOverlay').addEventListener('click', function (e
   const msgs = {
     ok:          ['Agendamento salvo!', 'success'],
     confirmado:  ['Agendamento confirmado!', 'success'],
+    concluido:   ['Agendamento concluído!', 'success'],
     cancelado:   ['Agendamento cancelado.', 'info'],
     erro:        ['Erro ao processar.', 'error'],
   };

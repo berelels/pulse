@@ -7,6 +7,11 @@ require_once 'config/conexao.php';
 require_once 'config/sessao.php';
 requireAuth();
 
+if (!hasPermission('relatorios')) {
+    header('Location: dashboard.php');
+    exit;
+}
+
 $pageTitle = 'Relatórios';
 $pdo       = getConexao();
 

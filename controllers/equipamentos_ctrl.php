@@ -7,6 +7,11 @@ require_once 'config/conexao.php';
 require_once 'config/sessao.php';
 requireAuth();
 
+if (!hasPermission('equipamentos')) {
+    header('Location: dashboard.php');
+    exit;
+}
+
 $pageTitle    = 'Equipamentos';
 $pdo          = getConexao();
 $busca        = trim($_GET['busca']  ?? '');

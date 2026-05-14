@@ -8,9 +8,11 @@
       <h1><i class="fa-solid fa-guitar"></i> Bandas &amp; Clientes</h1>
       <p class="page-subtitle">Gerencie o cadastro de bandas e responsáveis.</p>
     </div>
+    <?php if (hasPermission('edit')): ?>
     <button class="btn btn-primary" id="btnNovaBanda">
       <i class="fa-solid fa-plus"></i> Nova Banda
     </button>
+    <?php endif; ?>
   </header>
 
   <!-- Busca -->
@@ -54,6 +56,7 @@
               <td><?= htmlspecialchars($b['genero']   ?? '—') ?></td>
               <td><?= date('d/m/Y', strtotime($b['criado_em'])) ?></td>
               <td class="action-btns">
+                <?php if (hasPermission('edit')): ?>
                 <button class="btn btn-icon btn-edit" title="Editar"
                   data-id="<?= $b['id'] ?>"
                   data-nome="<?= htmlspecialchars($b['nome_banda'],  ENT_QUOTES) ?>"
@@ -62,11 +65,14 @@
                   data-gen="<?= htmlspecialchars($b['genero']   ?? '', ENT_QUOTES) ?>">
                   <i class="fa-solid fa-pen-to-square"></i>
                 </button>
+                <?php endif; ?>
+                <?php if (hasPermission('delete')): ?>
                 <button class="btn btn-icon btn-delete" title="Excluir"
                   data-id="<?= $b['id'] ?>"
                   data-nome="<?= htmlspecialchars($b['nome_banda'], ENT_QUOTES) ?>">
                   <i class="fa-solid fa-trash"></i>
                 </button>
+                <?php endif; ?>
               </td>
             </tr>
             <?php endforeach; ?>

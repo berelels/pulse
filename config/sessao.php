@@ -48,3 +48,15 @@ function isAdmin(): bool
 {
     return !empty($_SESSION['usuario_admin']);
 }
+
+/**
+ * Verifica se o usuário logado tem uma permissão específica.
+ * Administradores possuem todas as permissões.
+ */
+function hasPermission(string $perm): bool
+{
+    if (isAdmin()) return true;
+    
+    $perms = $_SESSION['usuario_perms'] ?? [];
+    return in_array($perm, $perms);
+}

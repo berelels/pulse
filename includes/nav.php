@@ -8,11 +8,20 @@ $usuario = usuarioLogado();
 
 $navItems = [
   ['href' => 'dashboard.php',    'page' => 'dashboard',    'icon' => 'fa-gauge-high',         'label' => 'Dashboard'],
-  ['href' => 'agendamentos.php', 'page' => 'agendamentos', 'icon' => 'fa-calendar-days',       'label' => 'Agendamentos'],
-  ['href' => 'bandas.php',       'page' => 'bandas',       'icon' => 'fa-guitar',              'label' => 'Bandas'],
-  ['href' => 'equipamentos.php', 'page' => 'equipamentos', 'icon' => 'fa-microphone-lines',    'label' => 'Equipamentos'],
-  ['href' => 'relatorios.php',   'page' => 'relatorios',   'icon' => 'fa-chart-line',          'label' => 'Relatórios'],
 ];
+
+if (hasPermission('agendamentos')) {
+  $navItems[] = ['href' => 'agendamentos.php', 'page' => 'agendamentos', 'icon' => 'fa-calendar-days', 'label' => 'Agendamentos'];
+}
+if (hasPermission('bandas')) {
+  $navItems[] = ['href' => 'bandas.php', 'page' => 'bandas', 'icon' => 'fa-guitar', 'label' => 'Bandas'];
+}
+if (hasPermission('equipamentos')) {
+  $navItems[] = ['href' => 'equipamentos.php', 'page' => 'equipamentos', 'icon' => 'fa-microphone-lines', 'label' => 'Equipamentos'];
+}
+if (hasPermission('relatorios')) {
+  $navItems[] = ['href' => 'relatorios.php', 'page' => 'relatorios', 'icon' => 'fa-chart-line', 'label' => 'Relatórios'];
+}
 if ($usuario['is_admin']) {
   $navItems[] = ['href' => 'usuarios.php', 'page' => 'usuarios', 'icon' => 'fa-users-gear', 'label' => 'Usuários'];
   $navItems[] = ['href' => 'regras.php',   'page' => 'regras',   'icon' => 'fa-sliders',    'label' => 'Regras'];

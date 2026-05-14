@@ -8,9 +8,11 @@
       <h1><i class="fa-solid fa-calendar-days"></i> Agendamentos</h1>
       <p class="page-subtitle">Gerencie os ensaios e gravações do estúdio.</p>
     </div>
+    <?php if (hasPermission('edit')): ?>
     <button class="btn btn-primary" id="btnNovoAg">
       <i class="fa-solid fa-plus"></i> Novo Agendamento
     </button>
+    <?php endif; ?>
   </header>
 
   <!-- Filtros combinados: banda + datas + status -->
@@ -69,6 +71,7 @@
               <td><?= htmlspecialchars($ag['usuario_nome']) ?></td>
               <td class="action-btns">
                 <!-- Editar -->
+                <?php if (hasPermission('edit')): ?>
                 <button class="btn btn-icon btn-edit" title="Editar"
                   data-id="<?= $ag['id'] ?>"
                   data-banda="<?= $ag['banda_id'] ?>"
@@ -81,22 +84,37 @@
                   data-equipamentos="<?= htmlspecialchars(json_encode($agEquipIds), ENT_QUOTES) ?>">
                   <i class="fa-solid fa-pen-to-square"></i>
                 </button>
-                <!-- Confirmar (só mostra se não está confirmado/concluído) -->
-                <?php if (!in_array($ag['status'], ['confirmado', 'concluido'])): ?>
-                <form method="POST" action="api/agendamentos_action.php" style="display:inline">
-                  <input type="hidden" name="acao" value="confirmar">
-                  <input type="hidden" name="id"   value="<?= $ag['id'] ?>">
-                  <button type="submit" class="btn btn-icon btn-confirm" title="Confirmar">
-                    <i class="fa-solid fa-circle-check"></i>
-                  </button>
-                </form>
                 <?php endif; ?>
+
+                <!-- Ações de Status -->
+                <?php if (hasPermission('edit')): ?>
+                  <?php if ($ag['status'] === 'pendente'): ?>
+                  <form method="POST" action="api/agendamentos_action.php" style="display:inline">
+                    <input type="hidden" name="acao" value="confirmar">
+                    <input type="hidden" name="id"   value="<?= $ag['id'] ?>">
+                    <button type="submit" class="btn btn-icon btn-confirm" title="Confirmar">
+                      <i class="fa-solid fa-check"></i>
+                    </button>
+                  </form>
+                  <?php elseif ($ag['status'] === 'confirmado'): ?>
+                  <form method="POST" action="api/agendamentos_action.php" style="display:inline">
+                    <input type="hidden" name="acao" value="concluir">
+                    <input type="hidden" name="id"   value="<?= $ag['id'] ?>">
+                    <button type="submit" class="btn btn-icon btn-success" title="Concluir" style="color:var(--clr-green); background:rgba(0,255,0,0.1)">
+                      <i class="fa-solid fa-flag-checkered"></i>
+                    </button>
+                  </form>
+                  <?php endif; ?>
+                <?php endif; ?>
+
                 <!-- Cancelar -->
+                <?php if (hasPermission('delete') && $ag['status'] !== 'cancelado'): ?>
                 <button class="btn btn-icon btn-delete" title="Cancelar"
                   data-id="<?= $ag['id'] ?>"
                   data-nome="<?= htmlspecialchars($ag['nome_banda'], ENT_QUOTES) ?>">
                   <i class="fa-solid fa-ban"></i>
                 </button>
+                <?php endif; ?>
               </td>
             </tr>
             <?php endforeach; ?>
@@ -156,8 +174,12 @@
         <div class="form-group">
           <label for="valor_total">Valor Total (R$) *</label>
           <input type="number" id="valor_total" name="valor_total"
-                 step="0.01" min="0" placeholder="0.00" required>
+                 step="0.01" min="0" placeholder="0.00" required readonly
+                 data-preco-hora="<?= $precoHoraEnsaio ?>">
           <span class="field-error" id="err-valor_total"></span>
+          <small style="color:var(--text-muted);font-size:0.75rem;margin-top:4px;display:block">
+            Cálculo automático: <?= number_format($precoHoraEnsaio, 2, ',', '.') ?>/hora + Equipamentos
+          </small>
         </div>
         <div class="form-group span-2">
           <label>Equipamentos Utilizados</label>
@@ -167,10 +189,11 @@
               <input type="checkbox" name="equipamentos[]"
                      value="<?= $eq['id'] ?>"
                      class="equip-checkbox"
-                     data-equip-id="<?= $eq['id'] ?>">
+                     data-equip-id="<?= $eq['id'] ?>"
+                     data-valor="<?= $eq['valor_locacao'] ?>">
               <span class="equip-check-label">
                 <i class="fa-solid fa-plug"></i>
-                <?= htmlspecialchars($eq['nome']) ?>
+                <?= htmlspecialchars($eq['nome']) ?> (+R$ <?= number_format($eq['valor_locacao'], 2, ',', '.') ?>)
               </span>
             </label>
             <?php endforeach; ?>

@@ -20,7 +20,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     } else {
         $pdo  = getConexao();
         $stmt = $pdo->prepare(
-            'SELECT id, nome, email, senha, is_admin, tema FROM usuarios WHERE email = :email LIMIT 1'
+            'SELECT id, nome, email, senha, is_admin, tema, permissoes FROM usuarios WHERE email = :email LIMIT 1'
         );
         $stmt->execute([':email' => $emailPost]);
         $user = $stmt->fetch();
@@ -40,6 +40,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $_SESSION['usuario_nome']  = $user['nome'];
             $_SESSION['usuario_email'] = $user['email'];
             $_SESSION['usuario_admin'] = (bool) $user['is_admin'];
+            $_SESSION['usuario_perms'] = json_decode($user['permissoes'] ?: '[]', true);
             $_SESSION['tema']          = $user['tema'] ?? 'escuro';
             $_SESSION['play_intro'] = true;
             
