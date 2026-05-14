@@ -8,7 +8,7 @@
   display: flex;
   align-items: stretch;
   min-height: 100vh;
-  background: var(--clr-cream);
+  background: #FFFDF0;
   overflow: hidden;
   flex-direction: row;
 }
@@ -21,7 +21,7 @@
   justify-content: center;
   align-items: center;
   padding: 3rem 3.5rem;
-  background: var(--clr-cream);
+  background: #FFFDF0;
   position: relative;
   z-index: 2;
 }
@@ -45,7 +45,7 @@
 .login-heading {
   font-size: 2rem;
   font-weight: 800;
-  color: var(--text-primary);
+  color: var(--clr-dark);
   line-height: 1.2;
   margin-bottom: 0.4rem;
   letter-spacing: -0.5px;
@@ -72,9 +72,9 @@
   padding: 0.75rem 1rem;
   border: 2px solid rgba(0,42,84,0.15);
   border-radius: 10px;
-  background: var(--glass-bg);
+  background: #fff;
   font-size: 0.9rem;
-  color: var(--text-primary);
+  color: var(--clr-dark);
   outline: none;
   transition: border-color 0.2s, box-shadow 0.2s;
 }
@@ -182,7 +182,7 @@
 /* Badges flutuantes */
 .login-badge {
   position: absolute;
-  background: var(--glass-bg);
+  background: #fff;
   border-radius: 12px;
   padding: 0.55rem 1rem;
   display: flex;
@@ -190,7 +190,7 @@
   gap: 0.5rem;
   font-size: 0.82rem;
   font-weight: 600;
-  color: var(--text-primary);
+  color: var(--clr-dark);
   box-shadow: 0 8px 24px rgba(0,0,0,0.2);
   animation: badgePop 0.6s ease both;
 }
@@ -223,31 +223,6 @@
 
 /* ---- Erro ---- */
 .login-left .alert { margin-bottom: 1.2rem; }
-
-/* ---- Tema Escuro (Bento Pro Flat) Override para Login ---- */
-[data-theme="escuro"] .login-right {
-  background: #0D0D0E;
-}
-[data-theme="escuro"] .btn-login-flat {
-  background: var(--clr-orange);
-  color: #fff;
-  box-shadow: 0 4px 0 #cc7a00;
-}
-[data-theme="escuro"] .btn-login-flat:hover {
-  box-shadow: 0 6px 0 #cc7a00;
-}
-[data-theme="escuro"] .btn-login-flat:active {
-  box-shadow: 0 2px 0 #cc7a00;
-}
-[data-theme="escuro"] .login-logo-flat {
-  color: #fff;
-}
-[data-theme="escuro"] .login-left input[type="email"],
-[data-theme="escuro"] .login-left input[type="password"],
-[data-theme="escuro"] .login-left input[type="text"] {
-  border-color: rgba(255,255,255,0.08);
-  background: #1A1A1C;
-}
 
 /* ---- Responsive ---- */
 @media (max-width: 768px) {

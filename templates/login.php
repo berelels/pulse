@@ -1,9 +1,5 @@
 <?php include 'includes/head.php'; ?>
 <body class="login-body">
-  <!-- Theme Toggle for Login Page -->
-  <button id="theme-toggle" class="btn-icon" style="position: absolute; top: 1.5rem; right: 1.5rem; z-index: 100; color: var(--text-secondary); background: var(--glass-bg); border: 1px solid var(--glass-border); border-radius: 50%; width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; cursor: pointer;">
-    <i class="fa-solid fa-sun"></i> <!-- will be updated by JS -->
-  </button>
 
   <!-- Painel esquerdo: formulário flat -->
   <div class="login-left">
