@@ -11,7 +11,8 @@ $pageTitle = 'Agendamentos';
 $pdo       = getConexao();
 
 // Selects para o formulário modal
-$bandas = $pdo->query('SELECT id, nome_banda FROM bandas ORDER BY nome_banda')->fetchAll();
+$bandas      = $pdo->query('SELECT id, nome_banda FROM bandas ORDER BY nome_banda')->fetchAll();
+$equipamentos_disponiveis = $pdo->query("SELECT id, nome FROM equipamentos WHERE status='disponivel' ORDER BY nome")->fetchAll();
 
 // Filtros vindos do GET
 $filtroBanda   = trim($_GET['banda']    ?? '');
@@ -41,7 +42,7 @@ if (in_array($filtroStatus, ['confirmado', 'cancelado', 'concluido', 'pendente']
 }
 
 $sql = "
-    SELECT a.id, b.nome_banda, u.nome AS usuario_nome,
+    SELECT a.id, b.id AS banda_id, b.nome_banda, u.nome AS usuario_nome,
            a.data_ensaio, a.hora_inicio, a.hora_fim,
            a.valor_total, a.status, a.observacoes
     FROM agendamentos a
@@ -54,5 +55,22 @@ $sql = "
 $stmt = $pdo->prepare($sql);
 $stmt->execute($params);
 $agendamentos = $stmt->fetchAll();
+
+// Busca os equipamentos de cada agendamento (em batch, para performance)
+$agIds = array_column($agendamentos, 'id');
+$equipPorAg = [];
+if (!empty($agIds)) {
+    $placeholders = implode(',', array_fill(0, count($agIds), '?'));
+    $eqStmt = $pdo->prepare(
+        "SELECT ae.agendamento_id, e.id AS equip_id
+         FROM agendamento_equipamentos ae
+         JOIN equipamentos e ON e.id = ae.equipamento_id
+         WHERE ae.agendamento_id IN ($placeholders)"
+    );
+    $eqStmt->execute($agIds);
+    foreach ($eqStmt->fetchAll() as $row) {
+        $equipPorAg[$row['agendamento_id']][] = $row['equip_id'];
+    }
+}
 
 $usuario = usuarioLogado();

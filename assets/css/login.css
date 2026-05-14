@@ -1,0 +1,228 @@
+/* ================================================================
+   PULSE — login.css  |  Flat Design + Ilustração Isométrica
+   Paleta: #282829 #FFFDF0 #002A54 #8AA8FF #FF9800
+   ================================================================ */
+
+/* --- Login body: fundo branco limpo (flat) --- */
+.login-body {
+  display: flex;
+  align-items: stretch;
+  min-height: 100vh;
+  background: #FFFDF0;
+  overflow: hidden;
+  flex-direction: row;
+}
+
+/* ---- Painel esquerdo: formulário ---- */
+.login-left {
+  flex: 0 0 420px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 3rem 3.5rem;
+  background: #FFFDF0;
+  position: relative;
+  z-index: 2;
+}
+
+.login-logo-flat {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 1.6rem;
+  font-weight: 800;
+  color: var(--clr-navy);
+  letter-spacing: -1px;
+  margin-bottom: 2.5rem;
+}
+.login-logo-flat i { color: var(--clr-orange); }
+
+.login-heading {
+  font-size: 2rem;
+  font-weight: 800;
+  color: var(--clr-dark);
+  line-height: 1.2;
+  margin-bottom: 0.4rem;
+  letter-spacing: -0.5px;
+}
+.login-sub {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  margin-bottom: 2rem;
+}
+
+/* Inputs flat style */
+.login-left .form-group { margin-bottom: 1.2rem; }
+.login-left .form-group label {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  display: block;
+  margin-bottom: 0.4rem;
+}
+.login-left input[type="email"],
+.login-left input[type="password"],
+.login-left input[type="text"] {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 2px solid rgba(0,42,84,0.15);
+  border-radius: 10px;
+  background: #fff;
+  font-size: 0.9rem;
+  color: var(--clr-dark);
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+.login-left input:focus {
+  border-color: var(--clr-orange);
+  box-shadow: 0 0 0 3px rgba(255,152,0,0.15);
+}
+.login-left .input-icon { position: relative; }
+.login-left .input-icon > i:first-child {
+  position: absolute;
+  left: 0.9rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  pointer-events: none;
+}
+.login-left .input-icon input { padding-left: 2.5rem; }
+.login-left .toggle-pass {
+  position: absolute;
+  right: 0.75rem;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none; border: none;
+  color: var(--text-muted);
+  cursor: pointer; padding: 0.2rem;
+}
+
+/* Botão flat com sombra de cor */
+.btn-login-flat {
+  width: 100%;
+  padding: 0.85rem;
+  background: var(--clr-navy);
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  margin-top: 0.5rem;
+  box-shadow: 0 4px 0 rgba(0,42,84,0.35);
+  transition: transform 0.15s, box-shadow 0.15s;
+}
+.btn-login-flat:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 0 rgba(0,42,84,0.35);
+}
+.btn-login-flat:active {
+  transform: translateY(1px);
+  box-shadow: 0 2px 0 rgba(0,42,84,0.35);
+}
+
+.login-hint-flat {
+  text-align: center;
+  color: var(--text-muted);
+  font-size: 0.78rem;
+  margin-top: 1.5rem;
+}
+
+/* ---- Painel direito: ilustração ---- */
+.login-right {
+  flex: 1;
+  background: var(--clr-navy);
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+/* Círculos decorativos (flat) */
+.login-right::before {
+  content: '';
+  position: absolute;
+  width: 500px; height: 500px;
+  border-radius: 50%;
+  background: rgba(138,168,255,0.12);
+  top: -100px; right: -100px;
+}
+.login-right::after {
+  content: '';
+  position: absolute;
+  width: 300px; height: 300px;
+  border-radius: 50%;
+  background: rgba(255,152,0,0.10);
+  bottom: -80px; left: -60px;
+}
+
+.login-illus-wrap {
+  position: relative;
+  z-index: 2;
+  width: 90%;
+  max-width: 480px;
+  animation: illustFloat 4s ease-in-out infinite;
+}
+.login-illus-wrap img {
+  width: 100%;
+  border-radius: 20px;
+}
+
+/* Badges flutuantes */
+.login-badge {
+  position: absolute;
+  background: #fff;
+  border-radius: 12px;
+  padding: 0.55rem 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--clr-dark);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+  animation: badgePop 0.6s ease both;
+}
+.login-badge i { color: var(--clr-orange); }
+.badge-top { top: 10%; right: -10%; animation-delay: 0.3s; }
+.badge-mid { bottom: 25%; left: -8%; animation-delay: 0.6s; }
+.badge-bot { bottom: 8%;  right: 5%;  animation-delay: 0.9s; }
+
+/* Tag de título na ilustração */
+.login-right-title {
+  position: absolute;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+  color: rgba(255,255,255,0.6);
+  font-size: 0.85rem;
+  z-index: 3;
+}
+
+/* Animações */
+@keyframes illustFloat {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(-12px); }
+}
+@keyframes badgePop {
+  from { opacity:0; transform: scale(0.7); }
+  to   { opacity:1; transform: scale(1); }
+}
+
+/* ---- Erro ---- */
+.login-left .alert { margin-bottom: 1.2rem; }
+
+/* ---- Responsive ---- */
+@media (max-width: 768px) {
+  .login-body { flex-direction: column; }
+  .login-left { flex: unset; padding: 2rem 1.5rem; }
+  .login-right { min-height: 240px; }
+  .login-badge { display: none; }
+}

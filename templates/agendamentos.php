@@ -59,6 +59,7 @@
             </tr>
           <?php else: ?>
             <?php foreach ($agendamentos as $ag): ?>
+            <?php $agEquipIds = $equipPorAg[$ag['id']] ?? []; ?>
             <tr>
               <td><strong><?= htmlspecialchars($ag['nome_banda']) ?></strong></td>
               <td><?= date('d/m/Y', strtotime($ag['data_ensaio'])) ?></td>
@@ -67,16 +68,30 @@
               <td><span class="badge badge-<?= $ag['status'] ?>"><?= ucfirst($ag['status']) ?></span></td>
               <td><?= htmlspecialchars($ag['usuario_nome']) ?></td>
               <td class="action-btns">
+                <!-- Editar -->
                 <button class="btn btn-icon btn-edit" title="Editar"
                   data-id="<?= $ag['id'] ?>"
+                  data-banda="<?= $ag['banda_id'] ?>"
                   data-data="<?= $ag['data_ensaio'] ?>"
                   data-ini="<?= substr($ag['hora_inicio'], 0, 5) ?>"
                   data-fim="<?= substr($ag['hora_fim'],    0, 5) ?>"
                   data-valor="<?= $ag['valor_total'] ?>"
                   data-status="<?= $ag['status'] ?>"
-                  data-obs="<?= htmlspecialchars($ag['observacoes'] ?? '', ENT_QUOTES) ?>">
+                  data-obs="<?= htmlspecialchars($ag['observacoes'] ?? '', ENT_QUOTES) ?>"
+                  data-equipamentos="<?= htmlspecialchars(json_encode($agEquipIds), ENT_QUOTES) ?>">
                   <i class="fa-solid fa-pen-to-square"></i>
                 </button>
+                <!-- Confirmar (só mostra se não está confirmado/concluído) -->
+                <?php if (!in_array($ag['status'], ['confirmado', 'concluido'])): ?>
+                <form method="POST" action="api/agendamentos_action.php" style="display:inline">
+                  <input type="hidden" name="acao" value="confirmar">
+                  <input type="hidden" name="id"   value="<?= $ag['id'] ?>">
+                  <button type="submit" class="btn btn-icon btn-confirm" title="Confirmar">
+                    <i class="fa-solid fa-circle-check"></i>
+                  </button>
+                </form>
+                <?php endif; ?>
+                <!-- Cancelar -->
                 <button class="btn btn-icon btn-delete" title="Cancelar"
                   data-id="<?= $ag['id'] ?>"
                   data-nome="<?= htmlspecialchars($ag['nome_banda'], ENT_QUOTES) ?>">
@@ -143,6 +158,26 @@
           <input type="number" id="valor_total" name="valor_total"
                  step="0.01" min="0" placeholder="0.00" required>
           <span class="field-error" id="err-valor_total"></span>
+        </div>
+        <div class="form-group span-2">
+          <label>Equipamentos Utilizados</label>
+          <div class="equip-checkboxes">
+            <?php foreach ($equipamentos_disponiveis as $eq): ?>
+            <label class="equip-check-item">
+              <input type="checkbox" name="equipamentos[]"
+                     value="<?= $eq['id'] ?>"
+                     class="equip-checkbox"
+                     data-equip-id="<?= $eq['id'] ?>">
+              <span class="equip-check-label">
+                <i class="fa-solid fa-plug"></i>
+                <?= htmlspecialchars($eq['nome']) ?>
+              </span>
+            </label>
+            <?php endforeach; ?>
+            <?php if (empty($equipamentos_disponiveis)): ?>
+              <p style="color:var(--text-muted);font-size:0.85rem">Nenhum equipamento disponível.</p>
+            <?php endif; ?>
+          </div>
         </div>
         <div class="form-group span-2">
           <label for="observacoes">Observações</label>

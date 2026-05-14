@@ -16,11 +16,18 @@ document.getElementById('btnNovoAg').addEventListener('click', function () {
   document.getElementById('inputAcao').value = 'criar';
   document.getElementById('inputId').value   = '';
   document.getElementById('formAg').reset();
+
+  // Limpar erros
   camposObrigatorios.forEach(function (c) {
     const err = document.getElementById('err-' + c);
     if (err) err.textContent = '';
-    document.getElementById(c).classList.remove('input-invalid');
+    const el = document.getElementById(c);
+    if (el) el.classList.remove('input-invalid');
   });
+
+  // Desmarcar todos os equipamentos
+  document.querySelectorAll('.equip-checkbox').forEach(cb => cb.checked = false);
+
   abrirOverlay('modalOverlay');
 });
 
@@ -28,15 +35,28 @@ document.getElementById('btnNovoAg').addEventListener('click', function () {
 document.getElementById('tabelaAgendamentos').addEventListener('click', function (e) {
   const btn = e.target.closest('.btn-edit');
   if (!btn) return;
+
   document.getElementById('modalTitulo').textContent = 'Editar Agendamento';
   document.getElementById('inputAcao').value    = 'editar';
   document.getElementById('inputId').value      = btn.dataset.id;
+
+  // Pré-selecionar banda ✅
+  const bandaSel = document.getElementById('banda_id');
+  if (bandaSel) bandaSel.value = btn.dataset.banda;
+
   document.getElementById('data_ensaio').value  = btn.dataset.data;
   document.getElementById('hora_inicio').value  = btn.dataset.ini;
   document.getElementById('hora_fim').value     = btn.dataset.fim;
   document.getElementById('valor_total').value  = btn.dataset.valor;
   document.getElementById('status_ag').value    = btn.dataset.status;
   document.getElementById('observacoes').value  = btn.dataset.obs;
+
+  // Pré-selecionar equipamentos ✅
+  const equipIds = JSON.parse(btn.dataset.equipamentos || '[]');
+  document.querySelectorAll('.equip-checkbox').forEach(function (cb) {
+    cb.checked = equipIds.includes(parseInt(cb.dataset.equipId));
+  });
+
   abrirOverlay('modalOverlay');
 });
 
@@ -82,9 +102,10 @@ document.getElementById('modalDelOverlay').addEventListener('click', function (e
 // ---- Toasts ----
 (function () {
   const msgs = {
-    ok:        ['Agendamento salvo!', 'success'],
-    cancelado: ['Agendamento cancelado.', 'info'],
-    erro:      ['Erro ao processar.', 'error'],
+    ok:          ['Agendamento salvo!', 'success'],
+    confirmado:  ['Agendamento confirmado!', 'success'],
+    cancelado:   ['Agendamento cancelado.', 'info'],
+    erro:        ['Erro ao processar.', 'error'],
   };
   const p = JSON.parse(document.getElementById('pageData').textContent);
   if (p.toast && msgs[p.toast]) showToast(...msgs[p.toast]);

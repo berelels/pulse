@@ -33,7 +33,11 @@ $usuario = usuarioLogado();
     <a href="usuarios.php"      class="nav-item <?= $paginaAtual === 'usuarios'      ? 'active' : '' ?>">
       <i class="fa-solid fa-users-gear"></i><span>Usuários</span>
     </a>
+    <a href="regras.php"        class="nav-item <?= $paginaAtual === 'regras'        ? 'active' : '' ?>">
+      <i class="fa-solid fa-sliders"></i><span>Regras</span>
+    </a>
     <?php endif; ?>
+
   </nav>
 
   <div class="sidebar-footer">

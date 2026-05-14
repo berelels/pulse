@@ -25,7 +25,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $stmt->execute([':email' => $emailPost]);
         $user = $stmt->fetch();
 
-        if ($user && $senha === $user['senha']) {
+        // Suporta bcrypt e texto puro (migração)
+        $senhaValida = password_verify($senha, $user['senha'] ?? '')
+                    || ($user && $senha === $user['senha']);
+
+        if ($user && $senhaValida) {
+            // Se senha ainda é texto puro, atualiza para bcrypt automaticamente
+            if ($user && !password_needs_rehash($user['senha'], PASSWORD_BCRYPT)
+                === false && $senha === $user['senha']) {
+                $upd = $pdo->prepare('UPDATE usuarios SET senha=:h WHERE id=:id');
+                $upd->execute([':h' => password_hash($senha, PASSWORD_BCRYPT), ':id' => $user['id']]);
+            }
             $_SESSION['usuario_id']    = $user['id'];
             $_SESSION['usuario_nome']  = $user['nome'];
             $_SESSION['usuario_email'] = $user['email'];
