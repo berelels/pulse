@@ -2,8 +2,10 @@
 // ── VIEWS ────────────────────────────────────────────────────────
 
 function viewLogin() {
-  document.body.className = 'login-body';
-  document.getElementById('app').innerHTML = `
+  document.body.className = '';
+  const app = document.getElementById('app');
+  app.style.cssText = 'display:flex;min-height:100vh;width:100%;position:relative;overflow:hidden;background:linear-gradient(135deg,#002A54 0%,#003f7a 50%,#1a2a4a 100%)';
+  app.innerHTML = `
     <button id="theme-toggle" class="btn-icon" style="position:fixed;top:1.5rem;right:1.5rem;z-index:100;color:var(--text-secondary);background:var(--glass-bg);border:1px solid var(--glass-border);border-radius:50%;width:36px;height:36px;display:flex;align-items:center;justify-content:center;cursor:pointer;"><i class="fa-solid fa-sun"></i></button>
     <div class="login-left">
       <div class="login-left-content">
@@ -80,6 +82,7 @@ function toggleSenha() {
 function viewDashboard() {
   if (!PulseAuth.check()) return;
   document.body.className = '';
+  const _app = document.getElementById('app'); if(_app) _app.style.cssText = '';
   const u = PulseAuth.current();
   const bandas = PulseStore.getAll('bandas');
   const ags = PulseStore.getAll('agendamentos');
@@ -130,6 +133,7 @@ function viewDashboard() {
 function viewBandas() {
   if (!PulseAuth.check()) return;
   document.body.className = '';
+  const _app = document.getElementById('app'); if(_app) _app.style.cssText = '';
   const u = PulseAuth.current();
   const canEdit = u.is_admin || (u.permissoes||[]).includes('edit');
   const canDel = u.is_admin || (u.permissoes||[]).includes('delete');
@@ -250,6 +254,7 @@ function viewBandas() {
 function viewEquipamentos() {
   if (!PulseAuth.check()) return;
   document.body.className = '';
+  const _app = document.getElementById('app'); if(_app) _app.style.cssText = '';
   const u = PulseAuth.current();
   const canEdit = u.is_admin || (u.permissoes||[]).includes('edit');
   const canDel = u.is_admin || (u.permissoes||[]).includes('delete');
@@ -365,6 +370,7 @@ function viewEquipamentos() {
 function viewAgendamentos() {
   if (!PulseAuth.check()) return;
   document.body.className = '';
+  const _app = document.getElementById('app'); if(_app) _app.style.cssText = '';
   const u = PulseAuth.current();
   const canEdit = u.is_admin || (u.permissoes||[]).includes('edit');
   const canDel = u.is_admin || (u.permissoes||[]).includes('delete');
@@ -538,6 +544,7 @@ function viewAgendamentos() {
 function viewRelatorios() {
   if (!PulseAuth.check()) return;
   document.body.className = '';
+  const _app = document.getElementById('app'); if(_app) _app.style.cssText = '';
   const ags = PulseStore.getAll('agendamentos');
   const bandas = PulseStore.getAll('bandas');
   const now = new Date();
@@ -635,6 +642,7 @@ function attachRelExports(ini,fim) {
 function viewUsuarios() {
   if (!PulseAuth.check()) return;
   document.body.className = '';
+  const _app = document.getElementById('app'); if(_app) _app.style.cssText = '';
   const me = PulseAuth.current();
   if (!me.is_admin) { window.location.hash='#dashboard'; return; }
   const users = PulseStore.getAll('usuarios');
@@ -764,6 +772,7 @@ function viewUsuarios() {
 function viewRegras() {
   if (!PulseAuth.check()) return;
   document.body.className = '';
+  const _app = document.getElementById('app'); if(_app) _app.style.cssText = '';
   const me = PulseAuth.current();
   if (!me.is_admin) { window.location.hash='#dashboard'; return; }
   const regras = PulseStore.getAll('regras');
