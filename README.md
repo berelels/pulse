@@ -1,138 +1,158 @@
-# Pulse — Recording Studio Management System 🎙️
+# Pulse — Sistema de Gestão para Estúdios de Gravação 🎙️
 
-**Pulse** is a comprehensive and modern solution for managing recording and rehearsal studios. The system centralizes the control of bands, equipment, scheduling, and billing, offering a premium user experience through an interface based on *Bento Pro*, *Glassmorphism*, and *Dynamic Island* design principles.
+**Pulse** é uma solução completa e moderna para gestão de estúdios de gravação e ensaio. Centraliza o controle de bandas, equipamentos, agendamentos e faturamento com uma interface premium baseada em *Liquid Glass UI*, *Dynamic Island* e *Glassmorphism*.
 
----
+> **Tags:** #SaaS #StudioManagement #PHP #MySQL #JavaScript #LocalStorage #GitHubPages #BentoGrid #ModernUI #DynamicIsland
 
-## 🏗️ Overview
-
-The system was designed to streamline the daily operations of music studios, allowing administrators and staff to manage complex workflows intuitively, featuring automatic value calculations and granular permission control.
-
----
-
-## 🛠 Technologies
-
-| Layer | Technology |
-| --- | --- |
-| Backend | Native PHP 8.x (Simplified MVC, PDO) |
-| Database | MySQL (Local XAMPP) |
-| Frontend | Semantic HTML5 + Pure CSS3 + JS ES6+ |
-| Icons | Font Awesome 6 |
-| Exporting | SheetJS (Excel) + jsPDF (PDF) |
+[![Deploy GitHub Pages](https://github.com/berelels/pulse/actions/workflows/deploy.yml/badge.svg)](https://github.com/berelels/pulse/actions/workflows/deploy.yml)
+[![Live Demo](https://img.shields.io/badge/Live%20Demo-GitHub%20Pages-orange?logo=github)](https://berelels.github.io/pulse)
 
 ---
 
-## 📁 Folder Structure
+## 🌐 Dois Modos de Execução
+
+O Pulse suporta **dois modos** de execução, sem conflito entre eles:
+
+| Modo | Tecnologia | Persistência | URL |
+|------|-----------|--------------|-----|
+| **GitHub Pages** | HTML + JS puro (SPA) | `localStorage` do navegador | [berelels.github.io/pulse](https://berelels.github.io/pulse) |
+| **XAMPP (local)** | PHP 8.x + MySQL | Banco de dados MySQL | `http://localhost/pulse` |
+
+### Modo GitHub Pages
+- Não requer servidor ou banco de dados
+- Funciona 100% no navegador
+- Dados persistidos no `localStorage` do usuário
+- Deploy automático via GitHub Actions a cada push na branch `main`
+- **Credenciais demo:** `admin@pulse.studio` / `admin123`
+
+### Modo XAMPP
+- Backend PHP completo com sessões e segurança por prepared statements
+- Banco MySQL com schema relacional
+- Todas as funcionalidades avançadas (permissões granulares, faturamento real, etc.)
+
+---
+
+## 🏗️ Estrutura do Projeto
 
 ```
 pulse/
-├── assets/         # CSS (main styles, login), JS, and Images
-├── config/         # PDO connection and session settings
-├── controllers/    # Business logic and actions (MVC)
-├── css/            # CSS files (mirror of assets/css for development)
-├── database/       # SQL script for database creation
-├── includes/       # Header, Dynamic Island (Nav), utilities
-├── templates/      # HTML Views for pages
-└── *.php           # Main routing files
-
+├── .github/workflows/  # GitHub Actions — deploy automático para GitHub Pages
+├── gh-pages/           # ← Versão estática (GitHub Pages)
+│   ├── index.html      #   SPA única (todas as rotas via hash)
+│   └── assets/
+│       ├── css/        #   Mesmos estilos do XAMPP
+│       └── js/
+│           ├── store.js    # CRUD localStorage
+│           ├── auth.js     # Autenticação simulada
+│           ├── ui.js       # Helpers: toast, nav, temas
+│           ├── views.js    # Views de todas as páginas
+│           └── router.js   # Roteamento hash-based
+├── assets/             # ← CSS/JS/Imagens compartilhados
+├── config/             # Configuração PDO (XAMPP)
+├── controllers/        # Lógica de negócio PHP
+├── database/           # Schema SQL (init.sql)
+├── includes/           # head.php, nav.php
+├── templates/          # Views PHP
+└── *.php               # Arquivos de roteamento PHP
 ```
 
 ---
 
-## 🚀 Installation and Configuration
+## 🚀 Instalação e Configuração
 
-### 1. Database (MySQL via XAMPP)
+### Modo GitHub Pages (Demo Online)
 
-1. Start Apache and MySQL in the **XAMPP Control Panel**.
-2. Access `http://localhost/phpmyadmin`.
-3. Import the `database/init.sql` file to create the `pulse` database and its tables, which are pre-populated with initial data.
+Acesse diretamente: **[berelels.github.io/pulse](https://berelels.github.io/pulse)**
 
-### 2. Configure Connection
+O deploy é automático via GitHub Actions a cada push. Para publicar manualmente:
 
-Database credentials are pre-configured for the default local XAMPP settings in `config/conexao.php`:
+```bash
+git add .
+git commit -m "feat: sua alteração"
+git push origin main
+# O workflow deploy.yml publica gh-pages/ na branch gh-pages automaticamente
+```
 
+### Modo XAMPP (Local)
+
+#### 1. Banco de Dados (MySQL)
+1. Inicie Apache e MySQL no **XAMPP Control Panel**
+2. Acesse `http://localhost/phpmyadmin`
+3. Importe `database/init.sql` para criar o banco `pulse`
+
+#### 2. Conexão (já configurada para XAMPP padrão)
 ```php
+// config/conexao.php
 define('DB_HOST', 'localhost');
-define('DB_PORT', '3306');
 define('DB_NAME', 'pulse');
 define('DB_USER', 'root');
 define('DB_PASS', '');
-
 ```
 
-### 3. Accessing the System
+#### 3. Acessar
+Coloque a pasta em `htdocs/pulse` e acesse: `http://localhost/pulse`
 
-1. Place the project folder (`pulse`) inside your XAMPP `htdocs` directory (e.g., `C:\xampp\htdocs\pulse` or `/opt/lampp/htdocs/pulse`).
-2. Access the system via browser at the URL: `http://localhost/pulse`.
-
-### 4. Default Login
-
-| Field | Value |
-| --- | --- |
-| Email | admin@pulse.studio |
-| Password | admin123 |
+#### 4. Login Padrão
+| Campo | Valor |
+|-------|-------|
+| Email | `admin@pulse.studio` |
+| Senha | `admin123` |
 
 ---
 
-## ✅ Features
+## ✅ Funcionalidades
 
-### Authentication
-
-* Login and protection via PHP sessions on all internal pages.
-* Two access levels: **Administrator** and **Staff**.
-
-### Bands / Clients
-
-* Full CRUD (Create, Read, Update, Delete).
-* Search by band name or representative.
-* Frontend (JS) and Backend (PHP) validation.
-
-### Equipment
-
-* Full CRUD.
-* Combined filters: name + status (`available` / `maintenance`).
-* Rental fee per session.
-
-### Scheduling
-
-* Full CRUD with creation/editing modal.
-* **Combined filters**: Band + Date Range + Status.
-* Secure cancellation (marks as `cancelled` instead of deleting).
-
-### Reports
-
-* Filter by period (start/end date).
-* KPIs: Completed billing, count by status.
-* Top 5 bands of the period.
-* **Export to Excel** (SheetJS).
-* **Export to PDF** (jsPDF + AutoTable).
-
-### Users (Admin Only)
-
-* Registration of new team members.
-* Access management.
-* Deletion (except for the currently logged-in user).
+| Módulo | GitHub Pages | XAMPP |
+|--------|:-----------:|:-----:|
+| **Login** (autenticação) | ✅ (simulado) | ✅ (sessão PHP) |
+| **Dashboard** (KPIs, próximos ensaios) | ✅ | ✅ |
+| **Bandas** (CRUD completo + busca) | ✅ | ✅ |
+| **Equipamentos** (CRUD + status) | ✅ | ✅ |
+| **Agendamentos** (CRUD + filtros + cálculo automático) | ✅ | ✅ |
+| **Relatórios** (faturamento, top bandas, exportação) | ✅ | ✅ |
+| **Usuários** (gerenciamento de equipe) | ✅ | ✅ |
+| **Regras de Negócio** (preços, horários) | ✅ | ✅ |
+| **Exportar Excel** (SheetJS) | ✅ | ✅ |
+| **Exportar PDF** (jsPDF) | ✅ | ✅ |
+| **Tema claro/escuro** | ✅ | ✅ |
+| **Intro animation** (primeiro login) | — | ✅ |
+| **Permissões granulares** | ✅ | ✅ |
 
 ---
 
-## 🔐 Security
+## 🛠 Tecnologias
 
-* Secure queries using **Prepared Statements (PDO)** to prevent SQL Injection.
-* Dual validation: JavaScript (UX) + PHP (Security).
-* Route access protected by `session_start()` + `$_SESSION` verification.
-* Admin page restricted to users with `is_admin = true`.
+| Camada | Tecnologia |
+|--------|-----------|
+| Backend (XAMPP) | PHP 8.x nativo (MVC simplificado, PDO) |
+| Banco (XAMPP) | MySQL via XAMPP |
+| Frontend (ambos) | HTML5 semântico + CSS3 puro + JS ES6+ |
+| SPA Engine (Pages) | Vanilla JS — Hash Router + localStorage Store |
+| Ícones | Font Awesome 6 |
+| Exportação | SheetJS (Excel) + jsPDF (PDF) |
+| CI/CD | GitHub Actions (`peaceiris/actions-gh-pages`) |
 
 ---
 
 ## 🎨 Design
 
-* **Palette**: `#282829` · `#FFFDF0` · `#002A54` · `#8AA8FF` · `#FF9800`
-* **Global Aesthetic**: Liquid Glass UI (Subtle Glassmorphism).
-* **Navigation**: Responsive Dynamic Island (centralized floating pill).
-* **Login**: 50/50 layout with Flat design and integrated Isometric illustration.
-* **Typography**: Outfit (Titles) and Nunito (Body) - Google Fonts.
-* **Animations**: Micro-animations on cards, modals, and toasts.
+- **Paleta:** `#282829` · `#FFFDF0` · `#002A54` · `#8AA8FF` · `#FF9800`
+- **Estética:** Liquid Glass UI (Glassmorphism sutil)
+- **Navegação:** Dynamic Island (pill flutuante centralizada)
+- **Login:** Layout 50/50 flat + ilustração isométrica
+- **Tipografia:** Outfit (títulos) + Nunito (corpo) — Google Fonts
+- **Animações:** Micro-animações em cards, modais e toasts
 
 ---
 
-*Developed as an academic project and SaaS portfolio — Pulse Studio Management System.*
+## 🔐 Segurança (Modo XAMPP)
+
+- Queries com **Prepared Statements (PDO)** — proteção contra SQL Injection
+- Validação dupla: JavaScript (UX) + PHP (segurança)
+- Rotas protegidas por `session_start()` + verificação de `$_SESSION`
+- Área de administração restrita a `is_admin = true`
+
+---
+
+*Desenvolvido como projeto de portfólio — Pulse Studio Management System.*
+*Suporta execução via GitHub Pages (localStorage) e via XAMPP (PHP + MySQL).*
