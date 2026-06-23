@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="escuro">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pulse — Sistema de Gestão para Estúdios</title>
+  <meta name="description" content="Pulse Studio — Sistema de Gestão para Estúdios de Gravação. CRUD completo, relatórios e gestão de bandas, equipamentos e agendamentos.">
+  <meta name="theme-color" content="#161616">
+
+  <!-- Fonts & Icons -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Nunito:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  <!-- App CSS -->
+  <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="stylesheet" href="assets/css/login.css">
+  <link rel="stylesheet" href="assets/css/app.css">
+  <link rel="stylesheet" href="assets/css/static-overrides.css">
+
+  <!-- Export libs -->
+  <script src="https://cdn.sheetjs.com/xlsx-0.20.1/package/dist/xlsx.full.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js"></script>
+
+  <!-- Apply saved theme before render -->
+  <script>
+    const _t = localStorage.getItem('pulse_theme');
+    if (_t) document.documentElement.setAttribute('data-theme', _t);
+  </script>
+
+  <!-- Demo Mode Banner CSS -->
+  <style>
+    #demo-banner {
+      position: fixed; bottom: 0; left: 0; right: 0; z-index: 99998;
+      background: linear-gradient(90deg, #002A54, #FF9800);
+      color: #fff; font-size: 0.78rem; font-weight: 600;
+      text-align: center; padding: 6px 1rem;
+      letter-spacing: 0.3px;
+    }
+    #demo-banner a { color: #fff; text-decoration: underline; margin-left: 0.5rem; }
+    .user-avatar.sm { width:24px;height:24px;font-size:.7rem; }
+    .user-chip-inline { display:flex;align-items:center;gap:.5rem; }
+  </style>
+</head>
+<body>
+  <div id="app"></div>
+
+  <div id="demo-banner">
+    🎙️ Pulse Studio — Modo Demo (GitHub Pages) · Dados salvos no seu navegador via localStorage
+    <a href="https://github.com/berelels/pulse" target="_blank">Ver no GitHub</a>
+  </div>
+
+  <!-- App Scripts (order matters) -->
+  <script src="assets/js/store.js"></script>
+  <script src="assets/js/auth.js"></script>
+  <script src="assets/js/ui.js"></script>
+  <script src="assets/js/views.js"></script>
+  <script src="assets/js/router.js"></script>
+</body>
+</html>

@@ -1,0 +1,253 @@
+/* ================================================================
+   PULSE — app.css  |  Appshell com bottom tabs + Claymorphism
+   ================================================================ */
+
+/* ---- Bottom Tab Navigation (referência imagem 1) ---- */
+.sidebar {
+  position: fixed;
+  bottom: 0; left: 0; right: 0; top: auto;
+  width: 100%;
+  height: auto;
+  flex-direction: row;
+  padding: 0;
+  background: var(--glass-bg);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-right: none;
+  border-top: 1px solid rgba(0,42,84,0.10);
+  border-radius: 20px 20px 0 0;
+  z-index: 100;
+  box-shadow: 0 -8px 32px rgba(0,42,84,0.10);
+  display: flex;
+  align-items: stretch;
+  justify-content: space-around;
+}
+
+.sidebar-logo { display: none; }
+
+.sidebar-nav {
+  flex-direction: row;
+  flex: 1;
+  gap: 0;
+  align-items: stretch;
+  justify-content: space-around;
+  padding: 0 0.5rem;
+}
+
+.nav-item {
+  flex-direction: column;
+  gap: 3px;
+  padding: 0.6rem 0.5rem;
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+  font-size: 0.68rem;
+  font-weight: 500;
+  color: var(--text-muted);
+  border-radius: 0;
+  border-top: 3px solid transparent;
+  transition: color 0.2s, border-color 0.2s;
+}
+.nav-item i {
+  font-size: 1.2rem;
+  width: auto;
+  margin-bottom: 2px;
+  transition: transform 0.2s;
+}
+.nav-item span { font-size: 0.65rem; font-weight: 600; letter-spacing: 0.2px; }
+.nav-item:hover { background: none; color: var(--clr-navy); }
+.nav-item:hover i { transform: translateY(-2px); }
+.nav-item.active {
+  background: none;
+  color: var(--clr-orange);
+  border-top-color: var(--clr-orange);
+  font-weight: 700;
+}
+.nav-item.active i { color: var(--clr-orange); transform: scale(1.1); }
+
+/* ---- Sidebar footer vira user-chip no canto ---- */
+.sidebar-footer {
+  display: flex;
+  align-items: center;
+  padding: 0 0.8rem;
+  border-top: none;
+  border-left: 1px solid rgba(0,42,84,0.08);
+  flex-shrink: 0;
+}
+.sidebar-footer .user-info,
+.sidebar-footer .user-name,
+.sidebar-footer .user-role { display: none; }
+.sidebar-footer .btn-logout { color: var(--text-muted); }
+.sidebar-footer .btn-logout:hover { color: #e74c3c; background: rgba(231,76,60,0.1); }
+
+/* ---- Main content: padding bottom para não ficar atrás da navbar ---- */
+.main-content {
+  margin-left: 0;
+  padding: 1.8rem 2rem 6rem;
+}
+
+/* ================================================================
+   Claymorphism / Skeuomorfismo Moderno nos cards internos
+   ================================================================ */
+.kpi-card {
+  border-radius: 20px;
+  background: var(--glass-bg);
+  border: 1px solid transparent;
+  box-shadow:
+    0 4px 0 rgba(0,42,84,0.10),
+    0 8px 24px rgba(0,42,84,0.08),
+    inset 0 1px 0 rgba(255,255,255,0.8);
+  backdrop-filter: none;
+}
+.kpi-card:hover {
+  box-shadow:
+    0 6px 0 rgba(0,42,84,0.12),
+    0 16px 40px rgba(0,42,84,0.14),
+    inset 0 1px 0 rgba(255,255,255,0.9);
+  transform: translateY(-3px);
+}
+
+.section-card {
+  border-radius: 24px;
+  background: var(--glass-bg);
+  border: 1px solid transparent;
+  box-shadow:
+    0 4px 0 rgba(0,42,84,0.08),
+    0 12px 32px rgba(0,42,84,0.07),
+    inset 0 1px 0 rgba(255,255,255,0.9);
+  backdrop-filter: none;
+}
+
+/* Tema Escuro - Remove shadows e aplica bordas flats */
+[data-theme="escuro"] .kpi-card,
+[data-theme="escuro"] .section-card {
+  box-shadow: var(--glass-shadow);
+  border-color: var(--glass-border);
+}
+[data-theme="escuro"] .kpi-card:hover {
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6);
+}
+
+/* glass-inner para regras */
+.glass-inner {
+  background: var(--glass-bg);
+  border: 1.5px solid rgba(0,42,84,0.08);
+  border-radius: 14px;
+  backdrop-filter: blur(8px);
+}
+
+/* ---- Botão confirmar verde ---- */
+.btn-confirm { color: #27ae60; }
+.btn-confirm:hover { background: rgba(39,174,96,0.12); color: #1e8449; }
+
+/* ================================================================
+   Equipamentos checkboxes no modal
+   ================================================================ */
+.equip-checkboxes {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 0.6rem;
+  margin-top: 0.3rem;
+}
+.equip-check-item {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  cursor: pointer;
+}
+.equip-check-item input[type="checkbox"] { display: none; }
+.equip-check-label {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 0.9rem;
+  border-radius: 10px;
+  border: 1.5px solid rgba(0,42,84,0.12);
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: all 0.2s;
+  width: 100%;
+  background: var(--glass-bg);
+}
+.equip-check-label i { color: var(--text-muted); font-size: 0.85rem; }
+.equip-check-item input:checked + .equip-check-label {
+  background: rgba(255,152,0,0.1);
+  border-color: var(--clr-orange);
+  color: #b36a00;
+  font-weight: 600;
+}
+.equip-check-item input:checked + .equip-check-label i { color: var(--clr-orange); }
+
+/* ================================================================
+   Regras de Negócio
+   ================================================================ */
+.regra-section { margin-bottom: 1.5rem; }
+.regras-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 0.85rem;
+}
+.regra-card {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem 1.2rem;
+}
+.regra-info { flex: 1; display: flex; flex-direction: column; gap: 0.15rem; }
+.regra-label { font-size: 0.88rem; font-weight: 600; color: var(--text-primary); }
+.regra-chave { font-size: 0.78rem; font-weight: 600; color: var(--text-secondary); }
+.regra-chave-badge {
+  font-size: 0.7rem;
+  background: rgba(138,168,255,0.15);
+  color: #2c4fa3;
+  border-radius: 6px;
+  padding: 0.1rem 0.5rem;
+  width: fit-content;
+  font-family: monospace;
+}
+.regra-desc { font-size: 0.75rem; color: var(--text-muted); }
+.regra-input {
+  width: 130px;
+  padding: 0.45rem 0.7rem;
+  border: 1.5px solid rgba(0,42,84,0.15);
+  border-radius: 8px;
+  font-size: 0.875rem;
+  text-align: right;
+  background: var(--clr-cream);
+  outline: none;
+  color: var(--text-primary);
+  transition: border-color 0.2s;
+}
+.regra-input:focus { border-color: var(--clr-blue); }
+.regra-del-form { display: inline; }
+.regra-valor-wrap { display: flex; align-items: center; gap: 0.5rem; }
+.regras-save-bar {
+  position: sticky;
+  bottom: 5.5rem;
+  display: flex;
+  justify-content: flex-end;
+  padding: 1rem 0;
+  z-index: 10;
+}
+.btn-lg { padding: 0.8rem 2rem; font-size: 1rem; border-radius: 12px; box-shadow: 0 4px 0 rgba(255,152,0,0.4); }
+.btn-lg:hover { transform: translateY(-2px); box-shadow: 0 6px 0 rgba(255,152,0,0.4); }
+
+/* ================================================================
+   Responsive
+   ================================================================ */
+@media (max-width: 900px) {
+  .main-content { padding: 1.2rem 1rem 6rem; }
+}
+@media (max-width: 640px) {
+  .main-content { padding: 0.8rem 0.7rem 5.5rem; }
+  .regras-grid { grid-template-columns: 1fr; }
+  .equip-checkboxes { grid-template-columns: 1fr 1fr; }
+  .filter-grid { grid-template-columns: 1fr 1fr; }
+  .form-grid { grid-template-columns: 1fr; }
+  .span-2 { grid-column: span 1; }
+  .kpi-grid { grid-template-columns: 1fr 1fr; }
+  .page-header { flex-direction: column; }
+  .modal { padding: 1.2rem; }
+}

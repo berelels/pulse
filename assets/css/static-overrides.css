@@ -1,0 +1,49 @@
+/* ── Static / GitHub Pages overrides ──────────────────────────── */
+
+/* The #app div acts as the full-page wrapper */
+#app {
+  min-height: 100vh;
+  display: block;
+}
+
+/* When login view is rendered inside #app, body needs its class applied to #app */
+#app > body.login-body,
+#app:has(> .login-left) {
+  display: flex;
+  min-height: 100vh;
+}
+
+/* Force login layout when app has login children */
+.login-body {
+  min-height: 100vh;
+}
+
+/* Ensure main-content gets proper bottom spacing due to demo banner */
+.main-content {
+  padding-bottom: calc(2rem + 30px) !important;
+}
+
+/* di-wrapper already fixed, ensure it renders above demo banner */
+.di-wrapper { z-index: 9000; }
+
+/* Regras save bar: adjust for banner */
+.regras-save-bar { bottom: calc(5.5rem + 30px); }
+
+/* Toast: lift above banner */
+#toast-container { bottom: calc(1.5rem + 30px); }
+
+/* Login body hack: when rendered inside #app as innerHTML with <body> tags,
+   browsers strip the <body> tag and its class. We use a wrapper approach instead. */
+#app .login-left,
+#app .login-right {
+  display: flex;
+}
+
+/* Ensure login page fills height when rendered via innerHTML */
+#app:has(.login-left) {
+  display: flex;
+  min-height: 100vh;
+  background: linear-gradient(135deg, var(--clr-navy,#002A54) 0%, #003f7a 50%, #1a2a4a 100%);
+  position: relative;
+  overflow: hidden;
+}
